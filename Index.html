@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>HR Upload Portal — Gulati Auto</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{--primary:#1a237e;--green:#2e7d32;--accent:#e53935;--bg:#f0f2f5;--border:#e0e0e0;--sub:#757575;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',sans-serif;background:var(--bg);min-height:100vh;}
+  #loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1a237e,#283593);}
+  .lcard{background:#fff;border-radius:16px;padding:48px 40px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center;}
+  .lcard .logo{font-size:52px;margin-bottom:12px;}
+  .lcard h2{color:var(--primary);font-size:22px;margin-bottom:4px;}
+  .lcard p{color:var(--sub);font-size:13px;margin-bottom:28px;}
+  .lcard input{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;margin-bottom:14px;outline:none;}
+  .lcard input:focus{border-color:var(--primary);}
+  .lcard .lbtn{width:100%;padding:13px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;}
+  .lerr{color:var(--accent);font-size:12px;margin-top:-8px;margin-bottom:10px;min-height:16px;}
+  #mainApp{display:none;}
+  header{background:var(--primary);color:#fff;padding:0 28px;height:62px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.2);}
+  .brand{font-size:17px;font-weight:700;}
+  .hbtn{cursor:pointer;padding:6px 14px;border:1.5px solid rgba(255,255,255,.45);border-radius:6px;font-size:13px;}
+  .hbtn:hover{background:rgba(255,255,255,.15);}
+  .wrap{max-width:960px;margin:0 auto;padding:28px 18px;}
+  .card{background:#fff;border-radius:14px;padding:32px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:22px;}
+  .card h3{font-size:17px;color:var(--primary);margin-bottom:6px;}
+  .card .sub{font-size:13px;color:var(--sub);margin-bottom:22px;}
+  .drop{border:2.5px dashed #90caf9;border-radius:12px;padding:52px 24px;text-align:center;cursor:pointer;background:#f8fbff;transition:all .2s;}
+  .drop:hover,.drop.over{border-color:var(--primary);background:#e8eaf6;}
+  .drop .ico{font-size:48px;margin-bottom:12px;}
+  .drop h4{font-size:16px;color:var(--primary);margin-bottom:6px;}
+  .drop p{font-size:13px;color:var(--sub);}
+  #fileInput{display:none;}
+  .fchosen{display:none;background:#e8f5e9;border-radius:10px;padding:14px 18px;align-items:center;gap:12px;margin-top:16px;}
+  .fchosen.show{display:flex;}
+  .fname{font-size:14px;font-weight:600;color:var(--green);flex:1;}
+  .fsize{font-size:12px;color:var(--sub);}
+  .fremove{cursor:pointer;font-size:18px;color:var(--accent);}
+  .preview{display:none;}
+  .preview.show{display:block;}
+  .stabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+  .stab{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--sub);}
+  .stab.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+  .tbox{background:#fff;border-radius:10px;overflow:auto;max-height:340px;border:1px solid var(--border);}
+  .tbox table{width:100%;border-collapse:collapse;font-size:12px;}
+  thead th{background:var(--primary);color:#fff;padding:10px 12px;text-align:left;white-space:nowrap;position:sticky;top:0;}
+  tbody tr{border-bottom:1px solid #f5f5f5;}
+  tbody tr:hover{background:#f8f9ff;}
+  tbody td{padding:9px 12px;}
+  .sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:18px;}
+  .scard{background:#f8f9ff;border-radius:10px;padding:16px;text-align:center;border:1px solid #e8eaf6;}
+  .scard .n{font-size:26px;font-weight:700;color:var(--primary);}
+  .scard .l{font-size:11px;color:var(--sub);margin-top:4px;}
+  .sbar{background:#fff;border-radius:12px;padding:20px 24px;box-shadow:0 2px 12px rgba(0,0,0,.07);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .sbar p{font-size:14px;color:var(--sub);flex:1;}
+  .sbtn{padding:13px 36px;background:var(--green);color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;}
+  .sbtn:hover{background:#1b5e20;}
+  .sbtn:disabled{opacity:.5;cursor:not-allowed;}
+  #successScreen{display:none;text-align:center;padding:60px 20px;}
+  #successScreen .big{font-size:72px;margin-bottom:16px;}
+  #successScreen h2{font-size:24px;color:var(--green);margin-bottom:8px;}
+  #successScreen p{font-size:15px;color:var(--sub);}
+  .abtn{margin-top:24px;padding:12px 30px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;}
+  #toast{position:fixed;bottom:24px;right:24px;background:#212121;color:#fff;padding:12px 22px;border-radius:8px;font-size:14px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
+  #toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="lcard">
+    <div class="logo">👩‍💼</div>
+    <h2>Gulati Auto Electricals</h2>
+    <p>HR Portal — Production Plan Upload</p>
+    <input type="text" id="uname" placeholder="Username"/>
+    <input type="password" id="upass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <div class="lerr" id="lerr"></div>
+    <button class="lbtn" onclick="doLogin()">Login →</button>
+  </div>
+</div>
+
+<div id="mainApp">
+  <header>
+    <div class="brand">👩‍💼 HR Upload Portal — Gulati Auto</div>
+    <div style="display:flex;align-items:center;gap:14px;font-size:13px;">
+      <span>Welcome, HR 👋</span>
+      <span class="hbtn" onclick="doLogout()">Logout</span>
+    </div>
+  </header>
+  <div class="wrap">
+    <div class="card">
+      <h3>📤 Upload Weekly Production Plan</h3>
+      <p class="sub">Excel file upload karein (.xlsx) jisme SWITCH, WIRE HARNESS, ROTOR, DIE CASTING, MOULDING sheets hon.</p>
+      <div class="drop" id="drop" onclick="document.getElementById('fileInput').click()"
+           ondragover="onDrag(event,true)" ondragleave="onDrag(event,false)" ondrop="onDrop(event)">
+        <div class="ico">📊</div>
+        <h4>Click karein ya file yahan drop karein</h4>
+        <p>Sirf .xlsx, .xls files</p>
+      </div>
+      <input type="file" id="fileInput" accept=".xlsx,.xls" onchange="onFileSelect(event)"/>
+      <div class="fchosen" id="fchosen">
+        <span>📗</span>
+        <span class="fname" id="fname">—</span>
+        <span class="fsize" id="fsize"></span>
+        <span class="fremove" onclick="removeFile()">✕</span>
+      </div>
+    </div>
+
+    <div class="preview" id="preview">
+      <div class="card">
+        <h3>👁 Data Preview</h3>
+        <p class="sub">Send karne se pehle verify karein.</p>
+        <div class="stabs" id="stabs"></div>
+        <div class="tbox"><table id="ptable"></table></div>
+        <div class="sgrid" id="sgrid"></div>
+      </div>
+      <div class="sbar">
+        <p>📩 <b>Send to Sir</b> click karte hi Sir ke dashboard pe plan aa jayega.</p>
+        <button class="sbtn" id="sbtn" onclick="sendToSir()">📨 Send to Sir</button>
+      </div>
+    </div>
+
+    <div id="successScreen">
+      <div class="big">🎉</div>
+      <h2>Plan Sent Successfully!</h2>
+      <p>Sir ko notify kar diya gaya hai. Approve/Reject hone par aapko email aayegi.</p>
+      <button class="abtn" onclick="resetAll()">Upload New Plan</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── SUPABASE CONFIG ─────────────────────────────────────────────
+const SUPABASE_URL  = 'https://wbnnztvymnnytbfltjex.supabase.co';
+const SUPABASE_ANON = 'APNI_ANON_KEY_YAHAN_DAALO';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// ── CREDENTIALS ─────────────────────────────────────────────────
+const CREDS = { user: 'hr', pass: 'hr@gulati2026' };
+
+// ── FIXED PRICES ────────────────────────────────────────────────
+const FIXED_PRICE = { 'ROTOR': 25, 'DIE CASTING': 330, 'MOULDING': 7 };
+
+let wbData = {}, activeSheet = '';
+
+// ── LOGIN ───────────────────────────────────────────────────────
+function doLogin() {
+  const u = document.getElementById('uname').value.trim();
+  const p = document.getElementById('upass').value;
+  if (u === CREDS.user && p === CREDS.pass) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+  } else {
+    document.getElementById('lerr').textContent = '⚠ Galat username ya password';
+  }
+}
+function doLogout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('mainApp').style.display = 'none';
+  resetAll();
+}
+
+// ── FILE HANDLING ───────────────────────────────────────────────
+function onDrag(e, over) { e.preventDefault(); document.getElementById('drop').classList.toggle('over', over); }
+function onDrop(e) { e.preventDefault(); document.getElementById('drop').classList.remove('over'); if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); }
+function onFileSelect(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
+function removeFile() {
+  wbData = {};
+  document.getElementById('fchosen').classList.remove('show');
+  document.getElementById('preview').classList.remove('show');
+  document.getElementById('fileInput').value = '';
+}
+
+function processFile(file) {
+  if (!file.name.match(/\.(xlsx|xls)$/i)) { alert('Sirf Excel file upload karein!'); return; }
+  document.getElementById('fname').textContent = file.name;
+  document.getElementById('fsize').textContent = (file.size / 1024).toFixed(1) + ' KB';
+  document.getElementById('fchosen').classList.add('show');
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    const wb = XLSX.read(ev.target.result, { type: 'binary', cellDates: true });
+    wbData = {};
+    wb.SheetNames.forEach(name => {
+      const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, defval: '' });
+      const clean = rows.filter(r => r.some(c => c !== '' && c !== null));
+      if (clean.length > 1) wbData[name] = clean;
+    });
+    if (!Object.keys(wbData).length) { alert('Excel mein koi data nahi!'); return; }
+    buildPreview();
+    document.getElementById('preview').classList.add('show');
+    showToast('✅ Excel read ho gaya!');
+  };
+  reader.readAsBinaryString(file);
+}
+
+// ── PREVIEW ─────────────────────────────────────────────────────
+function buildPreview() {
+  const tabs = document.getElementById('stabs');
+  tabs.innerHTML = '';
+  Object.keys(wbData).forEach((name, i) => {
+    const b = document.createElement('div');
+    b.className = 'stab' + (i === 0 ? ' active' : '');
+    b.textContent = name;
+    b.onclick = () => { activeSheet = name; showSheet(name); document.querySelectorAll('.stab').forEach(t => t.classList.remove('active')); b.classList.add('active'); };
+    tabs.appendChild(b);
+  });
+  activeSheet = Object.keys(wbData)[0];
+  showSheet(activeSheet);
+  buildSummary();
+}
+function showSheet(name) {
+  const rows = wbData[name] || [];
+  const t = document.getElementById('ptable');
+  if (!rows.length) { t.innerHTML = '<tr><td>No data</td></tr>'; return; }
+  const head = rows[0], body = rows.slice(1);
+  t.innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead>' +
+    '<tbody>' + body.map(r => '<tr>' + head.map((_, i) => '<td>' + (r[i] ?? '') + '</td>').join('') + '</tr>').join('') + '</tbody>';
+}
+function buildSummary() {
+  const sheets = Object.keys(wbData);
+  let total = 0; sheets.forEach(s => total += wbData[s].length - 1);
+  document.getElementById('sgrid').innerHTML =
+    '<div class="scard"><div class="n">' + sheets.length + '</div><div class="l">Sheets</div></div>' +
+    '<div class="scard"><div class="n">' + total + '</div><div class="l">Total Rows</div></div>' +
+    sheets.map(s => '<div class="scard"><div class="n">' + (wbData[s].length - 1) + '</div><div class="l">' + s + '</div></div>').join('');
+}
+
+// ── SEND TO SIR (Supabase) ──────────────────────────────────────
+async function sendToSir() {
+  const btn = document.getElementById('sbtn');
+  btn.disabled = true; btn.textContent = '⏳ Uploading...';
+
+  try {
+    // Fetch master price list
+    const { data: masterData } = await sb.from('master_price_list').select('*');
+    const masterMap = {};
+    (masterData || []).forEach(r => { masterMap[r.part_name.toLowerCase()] = r.rate; });
+
+    const weekStart = getWeekStart();
+
+    // Mark previous plans inactive
+    await sb.from('weekly_plans').update({ is_active: false }).eq('is_active', true);
+
+    // Create new plan
+    const { data: plan, error: planErr } = await sb.from('weekly_plans').insert({
+      week_start:     weekStart,
+      uploaded_by:    'HR',
+      uploaded_at:    new Date().toISOString(),
+      overall_status: 'PENDING',
+      is_active:      true
+    }).select().single();
+
+    if (planErr) throw planErr;
+
+    const planId   = plan.id;
+    const allRows  = [];
+    const catRows  = [];
+
+    // Process each sheet
+    for (const sheetName of Object.keys(wbData)) {
+      const rawRows  = wbData[sheetName];
+      const catUpper = sheetName.toUpperCase().trim();
+      const isFixed  = FIXED_PRICE.hasOwnProperty(catUpper);
+      const fixedRate= isFixed ? FIXED_PRICE[catUpper] : null;
+
+      const dataRows = rawRows.slice(1).filter(r =>
+        r[2] && String(r[2]).trim() !== '' && String(r[2]).trim().toUpperCase() !== 'PART NAME'
+      );
+
+      let sno = 1;
+      dataRows.forEach(row => {
+        const date     = row[1] ? formatDate(row[1]) : weekStart;
+        const partName = String(row[2]).trim();
+        const planQty  = parseFloat(row[3]) || 0;
+        const mp       = parseFloat(row[4]) || 0;
+        const mrp      = isFixed ? fixedRate : (masterMap[partName.toLowerCase()] || 0);
+        const ppv      = planQty * mrp;
+        const wedge    = parseFloat(((14000 / 26) * mp).toFixed(2));
+
+        allRows.push({
+          plan_id: planId, category: catUpper,
+          part_name: partName, date, plan_qty: planQty,
+          mp, mrp_per_part: mrp, ppv, wedge, status: 'PENDING'
+        });
+        sno++;
+      });
+
+      catRows.push({ plan_id: planId, category: catUpper, status: 'PENDING' });
+    }
+
+    // Insert all plan rows
+    if (allRows.length) {
+      const { error: rowErr } = await sb.from('plan_data').insert(allRows);
+      if (rowErr) throw rowErr;
+    }
+
+    // Insert category status rows
+    const { error: catErr } = await sb.from('category_status').insert(catRows);
+    if (catErr) throw catErr;
+
+    showSuccess();
+    showToast('✅ Plan successfully sent!');
+
+  } catch (err) {
+    alert('Error: ' + err.message);
+    btn.disabled = false; btn.textContent = '📨 Send to Sir';
+  }
+}
+
+// ── HELPERS ─────────────────────────────────────────────────────
+function showSuccess() {
+  document.getElementById('preview').classList.remove('show');
+  document.getElementById('successScreen').style.display = 'block';
+}
+function resetAll() {
+  wbData = {};
+  document.getElementById('fchosen').classList.remove('show');
+  document.getElementById('preview').classList.remove('show');
+  document.getElementById('successScreen').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+  const btn = document.getElementById('sbtn');
+  btn.disabled = false; btn.textContent = '📨 Send to Sir';
+}
+function getWeekStart() {
+  const d = new Date(), day = d.getDay();
+  const diff = day >= 5 ? day - 5 : day + 2;
+  const fri = new Date(d); fri.setDate(d.getDate() - diff);
+  return fri.toLocaleDateString('en-IN');
+}
+function formatDate(val) {
+  if (!val) return '';
+  if (val instanceof Date) return val.toLocaleDateString('en-IN');
+  return String(val);
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
