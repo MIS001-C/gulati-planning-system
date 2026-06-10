@@ -23,7 +23,6 @@
   header{background:var(--primary);color:#fff;padding:0 28px;height:62px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.2);}
   .brand{font-size:17px;font-weight:700;}
   .hbtn{cursor:pointer;padding:6px 14px;border:1.5px solid rgba(255,255,255,.45);border-radius:6px;font-size:13px;}
-  .hbtn:hover{background:rgba(255,255,255,.15);}
   .wrap{max-width:960px;margin:0 auto;padding:28px 18px;}
   .card{background:#fff;border-radius:14px;padding:32px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:22px;}
   .card h3{font-size:17px;color:var(--primary);margin-bottom:6px;}
@@ -57,19 +56,16 @@
   .sbar{background:#fff;border-radius:12px;padding:20px 24px;box-shadow:0 2px 12px rgba(0,0,0,.07);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
   .sbar p{font-size:14px;color:var(--sub);flex:1;}
   .sbtn{padding:13px 36px;background:var(--green);color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;}
-  .sbtn:hover{background:#1b5e20;}
   .sbtn:disabled{opacity:.5;cursor:not-allowed;}
   #successScreen{display:none;text-align:center;padding:60px 20px;}
   #successScreen .big{font-size:72px;margin-bottom:16px;}
   #successScreen h2{font-size:24px;color:var(--green);margin-bottom:8px;}
-  #successScreen p{font-size:15px;color:var(--sub);}
   .abtn{margin-top:24px;padding:12px 30px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;}
   #toast{position:fixed;bottom:24px;right:24px;background:#212121;color:#fff;padding:12px 22px;border-radius:8px;font-size:14px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
   #toast.show{opacity:1;}
 </style>
 </head>
 <body>
-
 <div id="loginScreen">
   <div class="lcard">
     <div class="logo">👩‍💼</div>
@@ -81,7 +77,6 @@
     <button class="lbtn" onclick="doLogin()">Login →</button>
   </div>
 </div>
-
 <div id="mainApp">
   <header>
     <div class="brand">👩‍💼 HR Upload Portal — Gulati Auto</div>
@@ -108,7 +103,6 @@
         <span class="fremove" onclick="removeFile()">✕</span>
       </div>
     </div>
-
     <div class="preview" id="preview">
       <div class="card">
         <h3>👁 Data Preview</h3>
@@ -122,36 +116,27 @@
         <button class="sbtn" id="sbtn" onclick="sendToSir()">📨 Send to Sir</button>
       </div>
     </div>
-
     <div id="successScreen">
       <div class="big">🎉</div>
       <h2>Plan Sent Successfully!</h2>
-      <p>Sir ko notify kar diya gaya hai. Approve/Reject hone par aapko email aayegi.</p>
+      <p>Sir ko notify kar diya gaya hai.</p>
       <button class="abtn" onclick="resetAll()">Upload New Plan</button>
     </div>
   </div>
 </div>
-
 <div id="toast"></div>
-
 <script>
-// ── SUPABASE CONFIG ─────────────────────────────────────────────
 const SUPABASE_URL  = 'https://wbnnztvymnnytbfltjex.supabase.co';
 const SUPABASE_ANON = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indibm56dHZ5bW5ueXRiZmx0amV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzA4NDAsImV4cCI6MjA5NjU0Njg0MH0.GSkp3jBxWK1NMWFhLtUwbSnquzGOObrvNg0M8xrQwh4`;
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
-// ── CREDENTIALS ─────────────────────────────────────────────────
 const CREDS = { user: 'hr', pass: 'hr123' };
-
-// ── FIXED PRICES ────────────────────────────────────────────────
 const FIXED_PRICE = { 'ROTOR': 25, 'DIE CASTING': 330, 'MOULDING': 7 };
 
 let wbData = {}, activeSheet = '';
 
-// ── LOGIN ───────────────────────────────────────────────────────
 function doLogin() {
-  const u = document.getElementById('uname').value.trim();
-  const p = document.getElementById('upass').value;
+  const u = document.getElementById('uname').value.trim().toLowerCase();
+  const p = document.getElementById('upass').value.trim();
   if (u === CREDS.user && p === CREDS.pass) {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainApp').style.display = 'block';
@@ -165,7 +150,6 @@ function doLogout() {
   resetAll();
 }
 
-// ── FILE HANDLING ───────────────────────────────────────────────
 function onDrag(e, over) { e.preventDefault(); document.getElementById('drop').classList.toggle('over', over); }
 function onDrop(e) { e.preventDefault(); document.getElementById('drop').classList.remove('over'); if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); }
 function onFileSelect(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
@@ -176,6 +160,49 @@ function removeFile() {
   document.getElementById('fileInput').value = '';
 }
 
+// ── DATE FIX ─────────────────────────────────────────────────────
+// Handles Excel serial numbers, Date objects, and string formats
+function parseExcelDate(val) {
+  if (!val || val === '') return '';
+
+  // Excel serial number (e.g. 45123)
+  if (typeof val === 'number') {
+    const date = new Date(Math.round((val - 25569) * 86400 * 1000));
+    const d = String(date.getUTCDate()).padStart(2, '0');
+    const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const y = date.getUTCFullYear();
+    return `${d}-${m}-${y}`;
+  }
+
+  // Already a Date object
+  if (val instanceof Date) {
+    const d = String(val.getDate()).padStart(2, '0');
+    const m = String(val.getMonth() + 1).padStart(2, '0');
+    const y = val.getFullYear();
+    return `${d}-${m}-${y}`;
+  }
+
+  // String like "01-01-2026" or "1/1/2026" or "2026-01-01"
+  const s = String(val).trim();
+
+  // Already in dd-mm-yyyy
+  if (/^\d{2}-\d{2}-\d{4}$/.test(s)) return s;
+
+  // dd/mm/yyyy or d/m/yyyy
+  if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(s)) {
+    const [d, m, y] = s.split('/');
+    return `${d.padStart(2,'0')}-${m.padStart(2,'0')}-${y}`;
+  }
+
+  // yyyy-mm-dd
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) {
+    const [y, m, d] = s.split('-');
+    return `${d}-${m}-${y}`;
+  }
+
+  return s;
+}
+
 function processFile(file) {
   if (!file.name.match(/\.(xlsx|xls)$/i)) { alert('Sirf Excel file upload karein!'); return; }
   document.getElementById('fname').textContent = file.name;
@@ -183,10 +210,11 @@ function processFile(file) {
   document.getElementById('fchosen').classList.add('show');
   const reader = new FileReader();
   reader.onload = function(ev) {
-    const wb = XLSX.read(ev.target.result, { type: 'binary', cellDates: true });
+    // cellDates: false — hum khud parse karenge
+    const wb = XLSX.read(ev.target.result, { type: 'binary', cellDates: false });
     wbData = {};
     wb.SheetNames.forEach(name => {
-      const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, defval: '' });
+      const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, defval: '', raw: true });
       const clean = rows.filter(r => r.some(c => c !== '' && c !== null));
       if (clean.length > 1) wbData[name] = clean;
     });
@@ -198,7 +226,6 @@ function processFile(file) {
   reader.readAsBinaryString(file);
 }
 
-// ── PREVIEW ─────────────────────────────────────────────────────
 function buildPreview() {
   const tabs = document.getElementById('stabs');
   tabs.innerHTML = '';
@@ -213,14 +240,20 @@ function buildPreview() {
   showSheet(activeSheet);
   buildSummary();
 }
+
 function showSheet(name) {
   const rows = wbData[name] || [];
   const t = document.getElementById('ptable');
   if (!rows.length) { t.innerHTML = '<tr><td>No data</td></tr>'; return; }
   const head = rows[0], body = rows.slice(1);
   t.innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead>' +
-    '<tbody>' + body.map(r => '<tr>' + head.map((_, i) => '<td>' + (r[i] ?? '') + '</td>').join('') + '</tr>').join('') + '</tbody>';
+    '<tbody>' + body.map(r => '<tr>' + head.map((_, i) => {
+      // Show parsed date in preview too
+      if (i === 1) return '<td>' + parseExcelDate(r[i]) + '</td>';
+      return '<td>' + (r[i] ?? '') + '</td>';
+    }).join('') + '</tr>').join('') + '</tbody>';
 }
+
 function buildSummary() {
   const sheets = Object.keys(wbData);
   let total = 0; sheets.forEach(s => total += wbData[s].length - 1);
@@ -230,16 +263,20 @@ function buildSummary() {
     sheets.map(s => '<div class="scard"><div class="n">' + (wbData[s].length - 1) + '</div><div class="l">' + s + '</div></div>').join('');
 }
 
-// ── SEND TO SIR (Supabase) ──────────────────────────────────────
+// ── SEND TO SIR ──────────────────────────────────────────────────
 async function sendToSir() {
   const btn = document.getElementById('sbtn');
   btn.disabled = true; btn.textContent = '⏳ Uploading...';
-
   try {
-    // Fetch master price list
-    const { data: masterData } = await sb.from('master_price_list').select('*');
+    // Fetch master price list from Supabase
+    const { data: masterData, error: mErr } = await sb.from('master_price_list').select('*');
+    if (mErr) throw mErr;
+
     const masterMap = {};
-    (masterData || []).forEach(r => { masterMap[r.part_name.toLowerCase()] = r.rate; });
+    (masterData || []).forEach(r => {
+      if (r.part_name && r.part_name !== 'FIXED_RATE')
+        masterMap[r.part_name.toLowerCase().trim()] = parseFloat(r.rate) || 0;
+    });
 
     const weekStart = getWeekStart();
 
@@ -248,20 +285,16 @@ async function sendToSir() {
 
     // Create new plan
     const { data: plan, error: planErr } = await sb.from('weekly_plans').insert({
-      week_start:     weekStart,
-      uploaded_by:    'HR',
-      uploaded_at:    new Date().toISOString(),
-      overall_status: 'PENDING',
-      is_active:      true
+      week_start: weekStart, uploaded_by: 'HR',
+      uploaded_at: new Date().toISOString(),
+      overall_status: 'PENDING', is_active: true
     }).select().single();
-
     if (planErr) throw planErr;
 
-    const planId   = plan.id;
-    const allRows  = [];
-    const catRows  = [];
+    const planId  = plan.id;
+    const allRows = [];
+    const catRows = [];
 
-    // Process each sheet
     for (const sheetName of Object.keys(wbData)) {
       const rawRows  = wbData[sheetName];
       const catUpper = sheetName.toUpperCase().trim();
@@ -269,50 +302,46 @@ async function sendToSir() {
       const fixedRate= isFixed ? FIXED_PRICE[catUpper] : null;
 
       const dataRows = rawRows.slice(1).filter(r =>
-        r[2] && String(r[2]).trim() !== '' && String(r[2]).trim().toUpperCase() !== 'PART NAME'
+        r[2] && String(r[2]).trim() !== '' &&
+        String(r[2]).trim().toUpperCase() !== 'PART NAME' &&
+        String(r[2]).trim() !== ''
       );
 
-      let sno = 1;
       dataRows.forEach(row => {
-        const date     = row[1] ? formatDate(row[1]) : weekStart;
+        const date     = parseExcelDate(row[1]) || weekStart;  // ← Fixed date
         const partName = String(row[2]).trim();
         const planQty  = parseFloat(row[3]) || 0;
         const mp       = parseFloat(row[4]) || 0;
-        const mrp      = isFixed ? fixedRate : (masterMap[partName.toLowerCase()] || 0);
-        const ppv      = planQty * mrp;
-        const wedge    = parseFloat(((14000 / 26) * mp).toFixed(2));
+
+        // Get MRP from master list or fixed price
+        const mrp   = isFixed ? fixedRate : (masterMap[partName.toLowerCase().trim()] || 0);
+        const ppv   = planQty * mrp;
+        const wedge = parseFloat(((14000 / 26) * mp).toFixed(2));
 
         allRows.push({
           plan_id: planId, category: catUpper,
           part_name: partName, date, plan_qty: planQty,
           mp, mrp_per_part: mrp, ppv, wedge, status: 'PENDING'
         });
-        sno++;
       });
-
       catRows.push({ plan_id: planId, category: catUpper, status: 'PENDING' });
     }
 
-    // Insert all plan rows
     if (allRows.length) {
       const { error: rowErr } = await sb.from('plan_data').insert(allRows);
       if (rowErr) throw rowErr;
     }
-
-    // Insert category status rows
     const { error: catErr } = await sb.from('category_status').insert(catRows);
     if (catErr) throw catErr;
 
     showSuccess();
     showToast('✅ Plan successfully sent!');
-
   } catch (err) {
     alert('Error: ' + err.message);
     btn.disabled = false; btn.textContent = '📨 Send to Sir';
   }
 }
 
-// ── HELPERS ─────────────────────────────────────────────────────
 function showSuccess() {
   document.getElementById('preview').classList.remove('show');
   document.getElementById('successScreen').style.display = 'block';
@@ -330,12 +359,9 @@ function getWeekStart() {
   const d = new Date(), day = d.getDay();
   const diff = day >= 5 ? day - 5 : day + 2;
   const fri = new Date(d); fri.setDate(d.getDate() - diff);
-  return fri.toLocaleDateString('en-IN');
-}
-function formatDate(val) {
-  if (!val) return '';
-  if (val instanceof Date) return val.toLocaleDateString('en-IN');
-  return String(val);
+  const dd = String(fri.getDate()).padStart(2,'0');
+  const mm = String(fri.getMonth()+1).padStart(2,'0');
+  return `${dd}-${mm}-${fri.getFullYear()}`;
 }
 function showToast(msg) {
   const t = document.getElementById('toast');
