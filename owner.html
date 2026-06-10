@@ -24,8 +24,7 @@
   .hright{display:flex;align-items:center;gap:14px;font-size:13px;}
   .badge{background:var(--accent);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;}
   .hbtn{cursor:pointer;padding:6px 14px;border:1.5px solid rgba(255,255,255,.45);border-radius:6px;font-size:13px;}
-  .hbtn:hover{background:rgba(255,255,255,.15);}
-  .wrap{max-width:1320px;margin:0 auto;padding:24px 18px;}
+  .wrap{max-width:1400px;margin:0 auto;padding:24px 18px;}
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px;}
   .sc{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--primary);}
   .sc.g{border-left-color:var(--green);}
@@ -47,17 +46,32 @@
   .tab.active .cnt{background:rgba(255,255,255,.3);}
   .tab.t-app{border-color:#a5d6a7;}
   .tab.t-rej{border-color:#ef9a9a;}
+
+  /* TABLE */
   .tcard{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;margin-bottom:18px;}
   .tcard table{width:100%;border-collapse:collapse;font-size:13px;}
   thead tr{background:var(--primary);}
   thead th{color:#fff;padding:12px 14px;text-align:left;font-weight:600;white-space:nowrap;}
-  tbody tr{border-bottom:1px solid #f5f5f5;}
+  tbody tr{border-bottom:1px solid #f0f0f0;}
   tbody tr:hover{background:#f8f9ff;}
-  tbody td{padding:11px 14px;}
-  .dtag{background:#e8eaf6;color:#3949ab;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;}
+  tbody td{padding:10px 14px;vertical-align:middle;}
+
+  /* DATE SEPARATOR — thick border between different dates */
+  tbody tr.date-start td{border-top:3px solid #90caf9 !important;}
+  .dtag{background:#e8eaf6;color:#3949ab;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:700;white-space:nowrap;}
   .mono{font-family:monospace;font-size:12.5px;}
-  .fbadge{background:#fff9c4;color:#f57f17;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-left:6px;}
-  .abar{background:#fff;border-radius:12px;padding:18px 24px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .fbadge{background:#fff9c4;color:#f57f17;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-left:5px;}
+
+  /* ROW ACTION BUTTONS */
+  .row-btn{padding:4px 12px;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
+  .row-app{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
+  .row-app:hover{background:#2e7d32;color:#fff;}
+  .row-rej{background:#ffebee;color:#e53935;border:1px solid #ef9a9a;margin-left:6px;}
+  .row-rej:hover{background:#e53935;color:#fff;}
+  .row-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+  /* CATEGORY ACTION BAR */
+  .abar{background:#fff;border-radius:12px;padding:18px 24px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
   .abar p{font-size:14px;font-weight:600;flex:1;}
   .btn{padding:10px 26px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
   .btn-app{background:var(--green);color:#fff;}
@@ -65,28 +79,29 @@
   .btn-rej{background:var(--accent);color:#fff;}
   .btn-rej:hover{background:#b71c1c;}
   .btn:disabled{opacity:.4;cursor:not-allowed;}
+
+  /* MODAL */
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
   .overlay.show{display:flex;}
   .modal{background:#fff;border-radius:14px;padding:32px 28px;width:440px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.3);}
   .modal h3{font-size:18px;margin-bottom:6px;}
   .modal p{color:var(--sub);font-size:13px;margin-bottom:18px;}
-  .modal textarea{width:100%;height:110px;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;resize:none;outline:none;font-family:inherit;}
+  .modal textarea{width:100%;height:100px;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;resize:none;outline:none;font-family:inherit;}
   .mbtns{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
   .btn-cancel{background:#f5f5f5;color:#333;}
   .btn-red{background:var(--accent);color:#fff;}
+
   .empty{text-align:center;padding:60px 20px;color:var(--sub);}
   .empty .ico{font-size:52px;margin-bottom:14px;}
   .loading{text-align:center;padding:60px;color:var(--sub);font-size:15px;}
   #noPlan{display:none;text-align:center;padding:80px 20px;}
   #noPlan .ico{font-size:60px;margin-bottom:16px;}
   #noPlan h3{color:var(--primary);font-size:20px;margin-bottom:8px;}
-  #noPlan p{color:var(--sub);font-size:14px;}
-  #toast{position:fixed;bottom:24px;right:24px;background:#212121;color:#fff;padding:12px 22px;border-radius:8px;font-size:14px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
+  #toast{position:fixed;bottom:24px;right:24px;background:#212121;color:#fff;padding:12px 22px;border-radius:8px;font-size:14px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;max-width:340px;}
   #toast.show{opacity:1;}
 </style>
 </head>
 <body>
-
 <div id="loginScreen">
   <div class="lcard">
     <div class="logo">🏭</div>
@@ -123,12 +138,15 @@
       <button class="rbtn" onclick="loadPlan()">🔄 Refresh</button>
     </div>
     <div class="tabs" id="tabsRow"></div>
-    <div id="tableArea"></div>
+
+    <!-- Category approve/reject bar -->
     <div class="abar" id="abar" style="display:none">
       <p id="aMsg">—</p>
-      <button class="btn btn-app" id="btnA" onclick="doApprove()">✅ Approve</button>
-      <button class="btn btn-rej" id="btnR" onclick="openModal()">❌ Reject</button>
+      <button class="btn btn-app" id="btnA" onclick="doApproveAll()">✅ Approve All</button>
+      <button class="btn btn-rej" id="btnR" onclick="openModal('cat')">❌ Reject All</button>
     </div>
+
+    <div id="tableArea"></div>
     <div id="noPlan">
       <div class="ico">📭</div>
       <h3>Koi Plan Upload Nahi Hua</h3>
@@ -137,37 +155,39 @@
   </div>
 </div>
 
+<!-- REJECT MODAL -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <h3 style="color:#e53935">❌ Plan Reject Karna Chahte Hain?</h3>
-    <p>Reason likhein — HR ko email mein jayega.</p>
-    <textarea id="rReason" placeholder="e.g. Quantities galat hain, please revise karein..."></textarea>
+    <h3 style="color:#e53935" id="modalTitle">❌ Reject Karna Chahte Hain?</h3>
+    <p id="modalDesc">Reason likhein — HR ko email mein jayega.</p>
+    <textarea id="rReason" placeholder="e.g. Quantities galat hain..."></textarea>
     <div class="mbtns">
       <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-red" onclick="confirmReject()">Send Rejection</button>
+      <button class="btn btn-red" onclick="confirmReject()">Confirm Reject</button>
     </div>
   </div>
 </div>
 <div id="toast"></div>
 
 <script>
-// ── SUPABASE CONFIG ─────────────────────────────────────────────
 const SUPABASE_URL  = 'https://wbnnztvymnnytbfltjex.supabase.co';
 const SUPABASE_ANON = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indibm56dHZ5bW5ueXRiZmx0amV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzA4NDAsImV4cCI6MjA5NjU0Njg0MH0.GSkp3jBxWK1NMWFhLtUwbSnquzGOObrvNg0M8xrQwh4`;
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-const CREDS     = { user: 'kartik', pass: 'kartik123' };
+const CREDS      = { user: 'kartik', pass: 'kartik123' };
 const FIXED_CATS = { 'ROTOR':25, 'DIE CASTING':330, 'MOULDING':7 };
 
-let planData  = {};
-let catStatus = {};
-let planId    = null;
-let activeTab = '';
+let planData   = {};
+let catStatus  = {};
+let planId     = null;
+let activeTab  = '';
+let rejectMode = 'cat';   // 'cat' = whole category, 'row' = single row
+let rejectRowId= null;
 
 // ── LOGIN ───────────────────────────────────────────────────────
 function doLogin() {
-  const u = document.getElementById('uname').value.trim();
-  const p = document.getElementById('upass').value;
+  const u = document.getElementById('uname').value.trim().toLowerCase();
+  const p = document.getElementById('upass').value.trim();
   if (u === CREDS.user && p === CREDS.pass) {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainApp').style.display = 'block';
@@ -189,7 +209,6 @@ async function loadPlan() {
   document.getElementById('noPlan').style.display = 'none';
 
   try {
-    // Get active plan
     const { data: plans } = await sb.from('weekly_plans').select('*').eq('is_active', true).limit(1);
     if (!plans || !plans.length) {
       document.getElementById('tableArea').innerHTML  = '';
@@ -199,17 +218,14 @@ async function loadPlan() {
 
     const plan = plans[0];
     planId = plan.id;
-
     document.getElementById('weekTxt').textContent  = '📅 Week: ' + plan.week_start;
-    document.getElementById('uploadTxt').textContent = '✅ Uploaded at: ' + new Date(plan.uploaded_at).toLocaleString('en-IN');
+    document.getElementById('uploadTxt').textContent = '✅ Uploaded: ' + new Date(plan.uploaded_at).toLocaleString('en-IN');
 
-    // Get category statuses
     const { data: catRows } = await sb.from('category_status').select('*').eq('plan_id', planId);
     catStatus = {};
     (catRows || []).forEach(r => { catStatus[r.category] = r.status; });
 
-    // Get all plan data
-    const { data: rows } = await sb.from('plan_data').select('*').eq('plan_id', planId).order('category').order('date');
+    const { data: rows } = await sb.from('plan_data').select('*').eq('plan_id', planId).order('category').order('date').order('id');
     planData = {};
     (rows || []).forEach(r => {
       if (!planData[r.category]) planData[r.category] = [];
@@ -221,26 +237,19 @@ async function loadPlan() {
       setStats(0,0,0,0); return;
     }
 
-    updateStats();
-    buildTabs();
+    updateStats(); buildTabs();
     const first = Object.keys(planData)[0];
     if (first) showTab(first);
-
   } catch(err) {
     document.getElementById('tableArea').innerHTML =
       '<div class="empty"><div class="ico">⚠️</div><p>Error: ' + err.message + '</p></div>';
   }
 }
 
-// ── STATS ───────────────────────────────────────────────────────
 function updateStats() {
   const vals = Object.values(catStatus);
-  setStats(
-    vals.filter(v=>v==='PENDING').length,
-    vals.filter(v=>v==='APPROVED').length,
-    vals.filter(v=>v==='REJECTED').length,
-    vals.length
-  );
+  setStats(vals.filter(v=>v==='PENDING').length, vals.filter(v=>v==='APPROVED').length,
+           vals.filter(v=>v==='REJECTED').length, vals.length);
 }
 function setStats(p,a,r,c) {
   document.getElementById('sPend').textContent  = p;
@@ -250,7 +259,6 @@ function setStats(p,a,r,c) {
   document.getElementById('pbadge').textContent = p + ' Pending';
 }
 
-// ── TABS ─────────────────────────────────────────────────────────
 function buildTabs() {
   const row = document.getElementById('tabsRow');
   row.innerHTML = '';
@@ -265,7 +273,7 @@ function buildTabs() {
   });
 }
 
-// ── SHOW TAB ─────────────────────────────────────────────────────
+// ── SHOW TAB with date separators + row buttons ──────────────────
 function showTab(cat) {
   activeTab = cat;
   buildTabs();
@@ -279,82 +287,142 @@ function showTab(cat) {
     document.getElementById('abar').style.display = 'none'; return;
   }
 
-  const thead = ['S.NO','DATE','PART NAME','PLAN QTY','MP',
-    isFixed ? 'MRP/PART (₹) <span class="fbadge">FIXED ₹'+FIXED_CATS[cat]+'</span>' : 'MRP/PART (₹)',
-    'PPV (₹)','WEDGE (₹)','STATUS'].map(h=>'<th>'+h+'</th>').join('');
+  // Build table with date separators
+  let lastDate = '';
+  const tbody = rows.map((r, i) => {
+    const rs       = r.status || 'PENDING';
+    const isNewDate= r.date !== lastDate;
+    lastDate       = r.date;
 
-  const tbody = rows.map((r,i) => {
-    const rs = r.status || st;
-    const bg = rs==='APPROVED'?'style="background:#f1fdf3"':rs==='REJECTED'?'style="background:#fff5f5"':'';
+    const bg = rs==='APPROVED'?'background:#f1fdf3':rs==='REJECTED'?'background:#fff5f5':'';
     const sc = rs==='APPROVED'?'#2e7d32':rs==='REJECTED'?'#e53935':'#f57c00';
-    return '<tr '+bg+'>' +
-      '<td>'+(i+1)+'</td>' +
-      '<td><span class="dtag">'+r.date+'</span></td>' +
-      '<td><b>'+r.part_name+'</b></td>' +
-      '<td class="mono">'+r.plan_qty+'</td>' +
-      '<td class="mono">'+r.mp+'</td>' +
-      '<td class="mono">₹'+Number(r.mrp_per_part||0).toLocaleString('en-IN')+'</td>' +
-      '<td class="mono">₹'+Number(r.ppv||0).toLocaleString('en-IN')+'</td>' +
-      '<td class="mono">₹'+Number(r.wedge||0).toLocaleString('en-IN')+'</td>' +
-      '<td><b style="color:'+sc+'">'+rs+'</b></td></tr>';
+    const dateClass = isNewDate ? ' class="date-start"' : '';
+
+    // Row-level buttons (only if category is still pending)
+    const rowBtns = st === 'PENDING'
+      ? `<button class="row-btn row-app" onclick="approveRow(${r.id})" ${rs!=='PENDING'?'disabled':''}>✓</button>
+         <button class="row-btn row-rej" onclick="rejectRow(${r.id})" ${rs!=='PENDING'?'disabled':''}>✗</button>`
+      : `<b style="color:${sc}">${rs}</b>`;
+
+    return `<tr${dateClass} style="${bg}">
+      <td>${i+1}</td>
+      <td><span class="dtag">${r.date}</span></td>
+      <td><b>${r.part_name}</b></td>
+      <td class="mono">${r.plan_qty}</td>
+      <td class="mono">${r.mp}</td>
+      <td class="mono">₹${Number(r.mrp_per_part||0).toLocaleString('en-IN')}${isFixed?'<span class="fbadge">FIXED</span>':''}</td>
+      <td class="mono">₹${Number(r.ppv||0).toLocaleString('en-IN')}</td>
+      <td class="mono">₹${Number(r.wedge||0).toLocaleString('en-IN')}</td>
+      <td>${rowBtns}</td>
+    </tr>`;
   }).join('');
 
-  area.innerHTML = '<div class="tcard"><table><thead><tr>'+thead+'</tr></thead><tbody>'+tbody+'</tbody></table></div>';
+  const mrpHeader = isFixed
+    ? `MRP/PART (₹) <span class="fbadge">FIXED ₹${FIXED_CATS[cat]}</span>`
+    : 'MRP/PART (₹)';
 
+  area.innerHTML = `<div class="tcard"><table>
+    <thead><tr>
+      <th>S.NO</th><th>DATE</th><th>PART NAME</th><th>PLAN QTY</th><th>MP</th>
+      <th>${mrpHeader}</th><th>PPV (₹)</th><th>WEDGE (₹)</th><th>ACTION</th>
+    </tr></thead>
+    <tbody>${tbody}</tbody>
+  </table></div>`;
+
+  // Category action bar
   const abar = document.getElementById('abar');
+  const btnA = document.getElementById('btnA');
+  const btnR = document.getElementById('btnR');
   abar.style.display = 'flex';
-  const btnA = document.getElementById('btnA'), btnR = document.getElementById('btnR');
 
-  if (st==='PENDING') {
-    document.getElementById('aMsg').innerHTML = '📋 <b>'+cat+'</b> — '+rows.length+' rows pending';
-    btnA.disabled=false; btnR.disabled=false;
-    btnA.textContent='✅ Approve'; btnR.textContent='❌ Reject';
-  } else if (st==='APPROVED') {
-    document.getElementById('aMsg').innerHTML = '<span style="color:#2e7d32">✅ '+cat+' APPROVED</span>';
-    btnA.disabled=true; btnR.disabled=true;
+  if (st === 'PENDING') {
+    document.getElementById('aMsg').innerHTML = '📋 <b>' + cat + '</b> — ' + rows.length + ' rows | Sab ek saath approve/reject karein:';
+    btnA.disabled = false; btnR.disabled = false;
+    btnA.textContent = '✅ Approve All'; btnR.textContent = '❌ Reject All';
+  } else if (st === 'APPROVED') {
+    document.getElementById('aMsg').innerHTML = '<span style="color:#2e7d32">✅ ' + cat + ' APPROVED hai.</span>';
+    btnA.disabled = true; btnR.disabled = true;
   } else {
-    document.getElementById('aMsg').innerHTML = '<span style="color:#e53935">❌ '+cat+' REJECTED</span>';
-    btnA.disabled=true; btnR.disabled=true;
+    document.getElementById('aMsg').innerHTML = '<span style="color:#e53935">❌ ' + cat + ' REJECTED hai.</span>';
+    btnA.disabled = true; btnR.disabled = true;
   }
 }
 
-// ── APPROVE ──────────────────────────────────────────────────────
-async function doApprove() {
+// ── ROW LEVEL APPROVE ───────────────────────────────────────────
+async function approveRow(rowId) {
+  try {
+    await sb.from('plan_data').update({ status: 'APPROVED' }).eq('id', rowId);
+    // Update local data
+    planData[activeTab] = planData[activeTab].map(r => r.id === rowId ? {...r, status:'APPROVED'} : r);
+    showTab(activeTab);
+    showToast('✅ Row approved!');
+  } catch(err) { showToast('Error: ' + err.message); }
+}
+
+// ── ROW LEVEL REJECT ────────────────────────────────────────────
+function rejectRow(rowId) {
+  rejectMode  = 'row';
+  rejectRowId = rowId;
+  document.getElementById('modalTitle').textContent = '❌ Is Row Ko Reject Karein?';
+  document.getElementById('modalDesc').textContent  = 'Optional reason likhein:';
+  openModal();
+}
+
+// ── CATEGORY APPROVE ALL ────────────────────────────────────────
+async function doApproveAll() {
   const btnA = document.getElementById('btnA');
-  btnA.disabled=true; btnA.textContent='⏳...';
+  btnA.disabled = true; btnA.textContent = '⏳...';
   try {
     await sb.from('category_status').update({ status:'APPROVED', updated_at: new Date().toISOString() })
             .eq('plan_id', planId).eq('category', activeTab);
-    await sb.from('plan_data').update({ status:'APPROVED' }).eq('plan_id', planId).eq('category', activeTab);
+    await sb.from('plan_data').update({ status:'APPROVED' })
+            .eq('plan_id', planId).eq('category', activeTab);
     catStatus[activeTab] = 'APPROVED';
+    planData[activeTab]  = planData[activeTab].map(r => ({...r, status:'APPROVED'}));
     updateStats(); buildTabs(); showTab(activeTab);
-    showToast('✅ '+activeTab+' Approved!');
-  } catch(err) { showToast('Error: '+err.message); btnA.disabled=false; btnA.textContent='✅ Approve'; }
+    showToast('✅ ' + activeTab + ' — sab Approved!');
+  } catch(err) { showToast('Error: '+err.message); btnA.disabled=false; btnA.textContent='✅ Approve All'; }
 }
 
-// ── REJECT ───────────────────────────────────────────────────────
-function openModal()  { document.getElementById('overlay').classList.add('show'); }
-function closeModal() { document.getElementById('overlay').classList.remove('show'); }
+// ── MODAL ────────────────────────────────────────────────────────
+function openModal() { document.getElementById('overlay').classList.add('show'); }
+function closeModal() {
+  document.getElementById('overlay').classList.remove('show');
+  rejectMode = 'cat'; rejectRowId = null;
+  document.getElementById('modalTitle').textContent = '❌ Reject Karna Chahte Hain?';
+  document.getElementById('modalDesc').textContent  = 'Reason likhein — HR ko email mein jayega.';
+}
 
 async function confirmReject() {
   const reason = document.getElementById('rReason').value.trim();
-  if (!reason) { alert('Reason likhna zaroori hai!'); return; }
   closeModal();
+
   try {
-    await sb.from('category_status').update({ status:'REJECTED', reject_reason: reason, updated_at: new Date().toISOString() })
-            .eq('plan_id', planId).eq('category', activeTab);
-    await sb.from('plan_data').update({ status:'REJECTED' }).eq('plan_id', planId).eq('category', activeTab);
-    catStatus[activeTab] = 'REJECTED';
+    if (rejectMode === 'row' && rejectRowId) {
+      // Single row reject
+      await sb.from('plan_data').update({ status:'REJECTED' }).eq('id', rejectRowId);
+      planData[activeTab] = planData[activeTab].map(r => r.id === rejectRowId ? {...r, status:'REJECTED'} : r);
+      showTab(activeTab);
+      showToast('❌ Row rejected!');
+    } else {
+      // Whole category reject
+      await sb.from('category_status').update({ status:'REJECTED', reject_reason: reason, updated_at: new Date().toISOString() })
+              .eq('plan_id', planId).eq('category', activeTab);
+      await sb.from('plan_data').update({ status:'REJECTED' })
+              .eq('plan_id', planId).eq('category', activeTab);
+      catStatus[activeTab] = 'REJECTED';
+      planData[activeTab]  = planData[activeTab].map(r => ({...r, status:'REJECTED'}));
+      updateStats(); buildTabs(); showTab(activeTab);
+      showToast('❌ ' + activeTab + ' — Rejected!');
+    }
     document.getElementById('rReason').value = '';
-    updateStats(); buildTabs(); showTab(activeTab);
-    showToast('❌ '+activeTab+' Rejected!');
-  } catch(err) { showToast('Error: '+err.message); }
+  } catch(err) { showToast('Error: ' + err.message); }
 }
 
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 4000);
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
 }
 </script>
 </body>
