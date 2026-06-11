@@ -550,7 +550,7 @@ async function doApproveAll() {
     const allRows = Object.values(planData).flat();
     updateStats(allRows); buildTabs(); showTab(activeTab); updateCounterBar();
     showToast('✅ '+activeTab+' — Sab Approved!');
-    await sendEmail(activeTab, 'APPROVED', ids.length, '');
+    await sendEmail(activeTab, 'APPROVED', ids.length, '', ids);
   } catch(err) { showToast('Error: '+err.message); btnA.disabled=false; btnA.textContent='✅ Approve All'; }
 }
 
@@ -597,7 +597,7 @@ async function confirmReject() {
       const allRows = Object.values(planData).flat();
       updateStats(allRows); buildTabs(); showTab(activeTab); updateCounterBar();
       showToast('❌ '+activeTab+' — Sab Rejected!');
-      await sendEmail(activeTab, 'REJECTED', ids.length, reason);
+      await sendEmail(activeTab, 'REJECTED', ids.length, reason, ids);
     } catch(err) { showToast('Error: '+err.message); }
   }
 }
@@ -622,8 +622,23 @@ async function clearOldData() {
 }
 
 // ── EMAIL ────────────────────────────────────────────────────────
-async function sendEmail(category, status, count, reason) {
+async function sendEmail(category, status, count, reason, rowIds) {
   try {
+    // Get items list from rowIds
+    let itemsList = '';
+    if (rowIds && rowIds.length) {
+      const rows = (planData[category] || []).filter(r => rowIds.includes(r.id));
+      itemsList = rows.map((r, i) =>
+        `${i+1}. ${r.part_name} | Date: ${r.date} | Qty: ${r.plan_qty} | MP: ${r.mp}`
+      ).join('\n');
+    } else {
+      // All rows of category
+      const rows = planData[category] || [];
+      itemsList = rows.map((r, i) =>
+        `${i+1}. ${r.part_name} | Date: ${r.date} | Qty: ${r.plan_qty} | MP: ${r.mp}`
+      ).join('\n');
+    }
+
     await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
       to_email: HR_EMAIL,
       category,
@@ -633,7 +648,8 @@ async function sendEmail(category, status, count, reason) {
       message:  status === 'APPROVED'
         ? `${category} production plan APPROVE ho gaya hai. ✅ Aap ab PO bana sakti hain.`
         : `${category} production plan REJECT ho gaya hai. ❌ Kripya plan revise karke dobara upload karein.`,
-      reason: reason || (status === 'APPROVED' ? 'N/A' : 'Reason not provided'),
+      reason:   reason || (status === 'APPROVED' ? 'N/A' : 'Reason not provided'),
+      items:    itemsList,
     });
     showToast('📧 HR ko email bhej di!');
   } catch(err) {
