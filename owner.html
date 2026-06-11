@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Owner Dashboard — Gulati Auto</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   :root{--primary:#1a237e;--accent:#e53935;--green:#2e7d32;--bg:#f0f2f5;--border:#e0e0e0;--sub:#757575;}
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -210,10 +211,14 @@ const SUPABASE_URL  = 'https://wbnnztvymnnytbfltjex.supabase.co';
 const SUPABASE_ANON = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indibm56dHZ5bW5ueXRiZmx0amV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzA4NDAsImV4cCI6MjA5NjU0Njg0MH0.GSkp3jBxWK1NMWFhLtUwbSnquzGOObrvNg0M8xrQwh4`;
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-// Email config — Supabase Edge Function ya EmailJS use kar sakte hain
-// Abhi ke liye console log + toast notification
-const HR_EMAIL    = 'mis.plant01@gulatiauto.com';
-const OWNER_EMAIL = 'mis.02@gulatiauto.com';
+// EmailJS Config
+const EJS_SERVICE  = 'service_qt95iuh';
+const EJS_TEMPLATE = 'ju9atlb';
+const EJS_KEY      = 's5DsGz1pTQQVHZDd7';
+emailjs.init(EJS_KEY);
+
+// HR Email — jis pe notification jayegi
+const HR_EMAIL = 'mis.plant01@gulatiauto.com';
 
 const CREDS      = { user: 'kartik', pass: 'kartik123' };
 const FIXED_CATS = { 'ROTOR':25, 'DIE CASTING':330, 'MOULDING':7 };
@@ -563,24 +568,29 @@ async function confirmReject() {
   }
 }
 
-// ── EMAIL NOTIFICATION ───────────────────────────────────────────
+// ── EMAIL NOTIFICATION via EmailJS ──────────────────────────────
 async function sendEmailNotification(category, status, count, reason) {
   try {
-    // EmailJS use kar rahe hain — free email sending
-    // Setup: https://www.emailjs.com (free 200 emails/month)
-    // Abhi ke liye Supabase mein log kar rahe hain
-    const logMsg = `[EMAIL LOG] Category: ${category} | Status: ${status} | Rows: ${count} | Reason: ${reason || 'N/A'} | Time: ${new Date().toLocaleString('en-IN')}`;
-    console.log(logMsg);
+    const isApproved = status === 'APPROVED';
+    const message    = isApproved
+      ? `${category} production plan APPROVE ho gaya hai. ✅ Aap ab is category ka PO bana sakti hain.`
+      : `${category} production plan REJECT ho gaya hai. ❌ Kripya plan revise karke dobara upload karein.`;
 
-    // Supabase mein email log save karo
-    await sb.from('weekly_plans').update({
-      overall_status: Object.values(catStatus).every(v=>v==='APPROVED') ? 'FULLY APPROVED' :
-                      Object.values(catStatus).every(v=>v!=='PENDING') ? 'PARTIALLY APPROVED' : 'PENDING'
-    }).eq('id', planId);
+    const templateParams = {
+      to_email: HR_EMAIL,
+      category: category,
+      status:   isApproved ? 'APPROVED ✅' : 'REJECTED ❌',
+      count:    count + ' rows',
+      time:     new Date().toLocaleString('en-IN'),
+      message:  message,
+      reason:   reason || (isApproved ? 'N/A' : 'Reason not provided'),
+    };
 
-    showToast(`📧 Email log saved — ${category} ${status}`);
-  } catch(e) {
-    console.warn('Email log error:', e);
+    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, templateParams);
+    showToast('📧 HR ko email bhej di — ' + category + ' ' + status);
+  } catch(err) {
+    console.error('Email error:', err);
+    showToast('⚠ Email nahi gayi: ' + err.text || err.message);
   }
 }
 
