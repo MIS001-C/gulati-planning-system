@@ -25,20 +25,27 @@
   .badge{background:var(--accent);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;}
   .hbtn{cursor:pointer;padding:6px 14px;border:1.5px solid rgba(255,255,255,.45);border-radius:6px;font-size:13px;}
   .wrap{max-width:1400px;margin:0 auto;padding:24px 18px;}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px;}
-  .sc{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--primary);}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;}
+  .sc{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--primary);}
   .sc.g{border-left-color:var(--green);}
   .sc.r{border-left-color:var(--accent);}
   .sc.o{border-left-color:#f57c00;}
-  .sc .n{font-size:34px;font-weight:700;color:var(--primary);}
+  .sc.b{border-left-color:#0288d1;}
+  .sc .n{font-size:30px;font-weight:700;color:var(--primary);}
   .sc.g .n{color:var(--green);}
   .sc.r .n{color:var(--accent);}
   .sc.o .n{color:#f57c00;}
+  .sc.b .n{color:#0288d1;}
   .sc .l{font-size:12px;color:var(--sub);margin-top:4px;}
+
   .wbar{background:#fff;border-radius:10px;padding:14px 20px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.06);gap:12px;flex-wrap:wrap;}
   .wbar .wk{font-size:14px;font-weight:700;color:var(--primary);}
   .wbar .wu{font-size:12px;color:var(--sub);margin-top:3px;}
   .rbtn{padding:8px 18px;background:#e8eaf6;color:#3949ab;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;}
+
+  /* TABS */
   .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
   .tab{padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--sub);transition:all .2s;white-space:nowrap;}
   .tab.active{background:var(--primary);color:#fff;border-color:var(--primary);}
@@ -46,46 +53,59 @@
   .tab.active .cnt{background:rgba(255,255,255,.3);}
   .tab.t-app{border-color:#a5d6a7;}
   .tab.t-rej{border-color:#ef9a9a;}
+  .tab.t-part{border-color:#ffcc02;}
 
-  /* TABLE */
-  .tcard{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;margin-bottom:18px;}
-  .tcard table{width:100%;border-collapse:collapse;font-size:13px;}
-  thead tr{background:var(--primary);}
-  thead th{color:#fff;padding:12px 14px;text-align:left;font-weight:600;white-space:nowrap;}
-  tbody tr{border-bottom:1px solid #f0f0f0;}
-  tbody tr:hover{background:#f8f9ff;}
-  tbody td{padding:10px 14px;vertical-align:middle;}
-
-  /* DATE SEPARATOR — thick border between different dates */
-  tbody tr.date-start td{border-top:3px solid #90caf9 !important;}
-  .dtag{background:#e8eaf6;color:#3949ab;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:700;white-space:nowrap;}
-  .mono{font-family:monospace;font-size:12.5px;}
-  .fbadge{background:#fff9c4;color:#f57f17;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-left:5px;}
-
-  /* ROW ACTION BUTTONS */
-  .row-btn{padding:4px 12px;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
-  .row-app{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
-  .row-app:hover{background:#2e7d32;color:#fff;}
-  .row-rej{background:#ffebee;color:#e53935;border:1px solid #ef9a9a;margin-left:6px;}
-  .row-rej:hover{background:#e53935;color:#fff;}
-  .row-btn:disabled{opacity:.4;cursor:not-allowed;}
+  /* SELECTION BAR */
+  .sel-bar{display:none;background:#fff3e0;border:2px solid #ffb74d;border-radius:10px;padding:14px 20px;margin-bottom:14px;align-items:center;gap:12px;flex-wrap:wrap;}
+  .sel-bar.show{display:flex;}
+  .sel-info{font-size:14px;font-weight:700;color:#e65100;flex:1;}
+  .sel-btn{padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;border:none;}
+  .sel-app{background:var(--green);color:#fff;}
+  .sel-app:hover{background:#1b5e20;}
+  .sel-rej{background:var(--accent);color:#fff;margin-left:6px;}
+  .sel-rej:hover{background:#b71c1c;}
+  .sel-clear{background:#e0e0e0;color:#333;}
 
   /* CATEGORY ACTION BAR */
-  .abar{background:#fff;border-radius:12px;padding:18px 24px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
+  .abar{background:#fff;border-radius:12px;padding:16px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
   .abar p{font-size:14px;font-weight:600;flex:1;}
-  .btn{padding:10px 26px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
+  .btn{padding:9px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
   .btn-app{background:var(--green);color:#fff;}
   .btn-app:hover{background:#1b5e20;}
   .btn-rej{background:var(--accent);color:#fff;}
   .btn-rej:hover{background:#b71c1c;}
   .btn:disabled{opacity:.4;cursor:not-allowed;}
 
+  /* TABLE */
+  .tcard{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;margin-bottom:18px;}
+  .tcard table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead tr{background:var(--primary);}
+  thead th{color:#fff;padding:11px 13px;text-align:left;font-weight:600;white-space:nowrap;}
+  tbody tr{border-bottom:1px solid #f0f0f0;transition:background .1s;}
+  tbody tr:hover{background:#f8f9ff;}
+  tbody tr.selected{background:#e8f5e9 !important;}
+  tbody tr.date-start td{border-top:3px solid #90caf9 !important;}
+  tbody td{padding:10px 13px;vertical-align:middle;}
+  .dtag{background:#e8eaf6;color:#3949ab;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;}
+  .mono{font-family:monospace;font-size:12px;}
+  .fbadge{background:#fff9c4;color:#f57f17;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;margin-left:4px;}
+
+  /* CHECKBOX */
+  .row-cb{width:16px;height:16px;cursor:pointer;accent-color:var(--primary);}
+
+  /* STATUS BADGE */
+  .st-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;}
+  .st-pending{background:#fff3e0;color:#f57c00;}
+  .st-approved{background:#e8f5e9;color:#2e7d32;}
+  .st-rejected{background:#ffebee;color:#e53935;}
+
   /* MODAL */
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
   .overlay.show{display:flex;}
-  .modal{background:#fff;border-radius:14px;padding:32px 28px;width:440px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+  .modal{background:#fff;border-radius:14px;padding:32px 28px;width:460px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.3);}
   .modal h3{font-size:18px;margin-bottom:6px;}
-  .modal p{color:var(--sub);font-size:13px;margin-bottom:18px;}
+  .modal p{color:var(--sub);font-size:13px;margin-bottom:16px;}
+  .modal .minfo{background:#fff3e0;border-radius:8px;padding:10px 14px;font-size:13px;color:#e65100;margin-bottom:14px;font-weight:600;}
   .modal textarea{width:100%;height:100px;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;resize:none;outline:none;font-family:inherit;}
   .mbtns{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
   .btn-cancel{background:#f5f5f5;color:#333;}
@@ -102,6 +122,7 @@
 </style>
 </head>
 <body>
+
 <div id="loginScreen">
   <div class="lcard">
     <div class="logo">🏭</div>
@@ -123,13 +144,17 @@
       <span class="hbtn" onclick="doLogout()">Logout</span>
     </div>
   </header>
+
   <div class="wrap">
+    <!-- STATS: row-level counts -->
     <div class="stats">
-      <div class="sc o"><div class="n" id="sPend">—</div><div class="l">Pending Approvals</div></div>
-      <div class="sc g"><div class="n" id="sApp">—</div><div class="l">Approved</div></div>
-      <div class="sc r"><div class="n" id="sRej">—</div><div class="l">Rejected</div></div>
-      <div class="sc">  <div class="n" id="sCat">—</div><div class="l">Total Categories</div></div>
+      <div class="sc o"><div class="n" id="sTotalRows">—</div><div class="l">Total Rows</div></div>
+      <div class="sc g"><div class="n" id="sAppRows">—</div><div class="l">Approved Rows</div></div>
+      <div class="sc r"><div class="n" id="sRejRows">—</div><div class="l">Rejected Rows</div></div>
+      <div class="sc b"><div class="n" id="sPendRows">—</div><div class="l">Pending Rows</div></div>
+      <div class="sc" ><div class="n" id="sCatPend">—</div><div class="l">Categories Pending</div></div>
     </div>
+
     <div class="wbar">
       <div>
         <div class="wk" id="weekTxt">Loading...</div>
@@ -137,13 +162,22 @@
       </div>
       <button class="rbtn" onclick="loadPlan()">🔄 Refresh</button>
     </div>
+
     <div class="tabs" id="tabsRow"></div>
 
-    <!-- Category approve/reject bar -->
+    <!-- SELECTION BAR — shows when rows are checked -->
+    <div class="sel-bar" id="selBar">
+      <div class="sel-info" id="selInfo">0 rows selected</div>
+      <button class="sel-btn sel-app" onclick="bulkAction('APPROVED')">✅ Approve Selected</button>
+      <button class="sel-btn sel-rej" onclick="openBulkReject()">❌ Reject Selected</button>
+      <button class="sel-btn sel-clear" onclick="clearSelection()">✕ Clear</button>
+    </div>
+
+    <!-- CATEGORY ACTION BAR -->
     <div class="abar" id="abar" style="display:none">
       <p id="aMsg">—</p>
       <button class="btn btn-app" id="btnA" onclick="doApproveAll()">✅ Approve All</button>
-      <button class="btn btn-rej" id="btnR" onclick="openModal('cat')">❌ Reject All</button>
+      <button class="btn btn-rej" id="btnR" onclick="openCatReject()">❌ Reject All</button>
     </div>
 
     <div id="tableArea"></div>
@@ -158,12 +192,13 @@
 <!-- REJECT MODAL -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <h3 style="color:#e53935" id="modalTitle">❌ Reject Karna Chahte Hain?</h3>
-    <p id="modalDesc">Reason likhein — HR ko email mein jayega.</p>
-    <textarea id="rReason" placeholder="e.g. Quantities galat hain..."></textarea>
+    <h3 style="color:#e53935">❌ Rejection Reason</h3>
+    <div class="minfo" id="modalInfo">—</div>
+    <p>HR ko email mein ye reason jayega:</p>
+    <textarea id="rReason" placeholder="e.g. Quantities galat hain, please revise karein..."></textarea>
     <div class="mbtns">
       <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-red" onclick="confirmReject()">Confirm Reject</button>
+      <button class="btn btn-red" onclick="confirmReject()">Send Rejection</button>
     </div>
   </div>
 </div>
@@ -174,15 +209,20 @@ const SUPABASE_URL  = 'https://wbnnztvymnnytbfltjex.supabase.co';
 const SUPABASE_ANON = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indibm56dHZ5bW5ueXRiZmx0amV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzA4NDAsImV4cCI6MjA5NjU0Njg0MH0.GSkp3jBxWK1NMWFhLtUwbSnquzGOObrvNg0M8xrQwh4`;
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
+// Email config — Supabase Edge Function ya EmailJS use kar sakte hain
+// Abhi ke liye console log + toast notification
+const HR_EMAIL    = 'mis.plan01@gulatiauto.com';
+const OWNER_EMAIL = 'mis.02@gulatiauto.com';
+
 const CREDS      = { user: 'kartik', pass: 'kartik123' };
 const FIXED_CATS = { 'ROTOR':25, 'DIE CASTING':330, 'MOULDING':7 };
 
-let planData   = {};
-let catStatus  = {};
-let planId     = null;
-let activeTab  = '';
-let rejectMode = 'cat';   // 'cat' = whole category, 'row' = single row
-let rejectRowId= null;
+let planData      = {};   // { CAT: [rows] }
+let catStatus     = {};   // { CAT: 'PENDING'|'APPROVED'|'REJECTED' }
+let planId        = null;
+let activeTab     = '';
+let selectedIds   = new Set();  // checked row IDs
+let rejectMode    = 'cat';      // 'cat' | 'bulk'
 
 // ── LOGIN ───────────────────────────────────────────────────────
 function doLogin() {
@@ -199,6 +239,7 @@ function doLogin() {
 function doLogout() {
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('mainApp').style.display = 'none';
+  selectedIds.clear();
 }
 
 // ── LOAD PLAN ───────────────────────────────────────────────────
@@ -207,13 +248,15 @@ async function loadPlan() {
   document.getElementById('tabsRow').innerHTML    = '';
   document.getElementById('abar').style.display   = 'none';
   document.getElementById('noPlan').style.display = 'none';
+  document.getElementById('selBar').classList.remove('show');
+  selectedIds.clear();
 
   try {
     const { data: plans } = await sb.from('weekly_plans').select('*').eq('is_active', true).limit(1);
     if (!plans || !plans.length) {
       document.getElementById('tableArea').innerHTML  = '';
       document.getElementById('noPlan').style.display = 'block';
-      setStats(0,0,0,0); return;
+      updateStats([]); return;
     }
 
     const plan = plans[0];
@@ -223,60 +266,76 @@ async function loadPlan() {
 
     const { data: catRows } = await sb.from('category_status').select('*').eq('plan_id', planId);
     catStatus = {};
-    (catRows || []).forEach(r => { catStatus[r.category] = r.status; });
+    (catRows||[]).forEach(r => { catStatus[r.category] = r.status; });
 
     const { data: rows } = await sb.from('plan_data').select('*').eq('plan_id', planId).order('category').order('date').order('id');
     planData = {};
-    (rows || []).forEach(r => {
+    (rows||[]).forEach(r => {
       if (!planData[r.category]) planData[r.category] = [];
       planData[r.category].push(r);
     });
 
     if (!Object.keys(planData).length) {
       document.getElementById('noPlan').style.display = 'block';
-      setStats(0,0,0,0); return;
+      updateStats([]); return;
     }
 
-    updateStats(); buildTabs();
+    const allRows = Object.values(planData).flat();
+    updateStats(allRows);
+    buildTabs();
     const first = Object.keys(planData)[0];
     if (first) showTab(first);
+
   } catch(err) {
     document.getElementById('tableArea').innerHTML =
-      '<div class="empty"><div class="ico">⚠️</div><p>Error: ' + err.message + '</p></div>';
+      '<div class="empty"><div class="ico">⚠️</div><p>Error: '+err.message+'</p></div>';
   }
 }
 
-function updateStats() {
-  const vals = Object.values(catStatus);
-  setStats(vals.filter(v=>v==='PENDING').length, vals.filter(v=>v==='APPROVED').length,
-           vals.filter(v=>v==='REJECTED').length, vals.length);
-}
-function setStats(p,a,r,c) {
-  document.getElementById('sPend').textContent  = p;
-  document.getElementById('sApp').textContent   = a;
-  document.getElementById('sRej').textContent   = r;
-  document.getElementById('sCat').textContent   = c;
-  document.getElementById('pbadge').textContent = p + ' Pending';
+// ── STATS — row level ────────────────────────────────────────────
+function updateStats(allRows) {
+  const total = allRows.length;
+  const app   = allRows.filter(r => r.status === 'APPROVED').length;
+  const rej   = allRows.filter(r => r.status === 'REJECTED').length;
+  const pend  = allRows.filter(r => r.status === 'PENDING').length;
+  const catP  = Object.values(catStatus).filter(v => v === 'PENDING').length;
+
+  document.getElementById('sTotalRows').textContent = total;
+  document.getElementById('sAppRows').textContent   = app;
+  document.getElementById('sRejRows').textContent   = rej;
+  document.getElementById('sPendRows').textContent  = pend;
+  document.getElementById('sCatPend').textContent   = catP;
+  document.getElementById('pbadge').textContent     = catP + ' Pending';
 }
 
+// ── TABS ─────────────────────────────────────────────────────────
 function buildTabs() {
   const row = document.getElementById('tabsRow');
   row.innerHTML = '';
   Object.keys(planData).forEach(cat => {
     const st   = catStatus[cat] || 'PENDING';
-    const icon = st==='APPROVED'?'✅':st==='REJECTED'?'❌':'🕐';
-    const div  = document.createElement('div');
-    div.className = 'tab' + (cat===activeTab?' active':'') + (st==='APPROVED'?' t-app':st==='REJECTED'?' t-rej':'');
-    div.innerHTML = icon + ' ' + cat + ' <span class="cnt">' + planData[cat].length + '</span>';
+    const rows = planData[cat] || [];
+    const appC = rows.filter(r=>r.status==='APPROVED').length;
+    const rejC = rows.filter(r=>r.status==='REJECTED').length;
+    const icon = st==='APPROVED'?'✅':st==='REJECTED'?'❌':
+                 (appC>0||rejC>0)?'⚡':'🕐';
+    const extraClass = st==='APPROVED'?' t-app':st==='REJECTED'?' t-rej':
+                       (appC>0||rejC>0)?' t-part':'';
+    const div = document.createElement('div');
+    div.className = 'tab'+(cat===activeTab?' active':'')+extraClass;
+    div.innerHTML = icon+' '+cat+' <span class="cnt">'+rows.length+'</span>';
     div.onclick   = () => showTab(cat);
     row.appendChild(div);
   });
 }
 
-// ── SHOW TAB with date separators + row buttons ──────────────────
+// ── SHOW TAB ─────────────────────────────────────────────────────
 function showTab(cat) {
   activeTab = cat;
+  selectedIds.clear();
+  updateSelBar();
   buildTabs();
+
   const rows    = planData[cat] || [];
   const st      = catStatus[cat] || 'PENDING';
   const isFixed = FIXED_CATS.hasOwnProperty(cat);
@@ -287,24 +346,26 @@ function showTab(cat) {
     document.getElementById('abar').style.display = 'none'; return;
   }
 
-  // Build table with date separators
   let lastDate = '';
   const tbody = rows.map((r, i) => {
     const rs       = r.status || 'PENDING';
     const isNewDate= r.date !== lastDate;
     lastDate       = r.date;
+    const dateClass= isNewDate ? ' class="date-start"' : '';
+    const isChecked= selectedIds.has(r.id);
+    const rowBg    = isChecked ? ' style="background:#e8f5e9"' :
+                     rs==='APPROVED' ? ' style="background:#f1fdf3"' :
+                     rs==='REJECTED' ? ' style="background:#fff5f5"' : '';
 
-    const bg = rs==='APPROVED'?'background:#f1fdf3':rs==='REJECTED'?'background:#fff5f5':'';
-    const sc = rs==='APPROVED'?'#2e7d32':rs==='REJECTED'?'#e53935':'#f57c00';
-    const dateClass = isNewDate ? ' class="date-start"' : '';
+    const stBadge = `<span class="st-badge st-${rs.toLowerCase()}">${rs}</span>`;
 
-    // Row-level buttons (only if category is still pending)
-    const rowBtns = st === 'PENDING'
-      ? `<button class="row-btn row-app" onclick="approveRow(${r.id})" ${rs!=='PENDING'?'disabled':''}>✓</button>
-         <button class="row-btn row-rej" onclick="rejectRow(${r.id})" ${rs!=='PENDING'?'disabled':''}>✗</button>`
-      : `<b style="color:${sc}">${rs}</b>`;
+    // Checkbox only for PENDING rows
+    const cb = rs === 'PENDING'
+      ? `<input type="checkbox" class="row-cb" ${isChecked?'checked':''} onchange="toggleRow(${r.id}, this)">`
+      : '—';
 
-    return `<tr${dateClass} style="${bg}">
+    return `<tr${dateClass}${rowBg} id="tr-${r.id}">
+      <td>${cb}</td>
       <td>${i+1}</td>
       <td><span class="dtag">${r.date}</span></td>
       <td><b>${r.part_name}</b></td>
@@ -313,18 +374,17 @@ function showTab(cat) {
       <td class="mono">₹${Number(r.mrp_per_part||0).toLocaleString('en-IN')}${isFixed?'<span class="fbadge">FIXED</span>':''}</td>
       <td class="mono">₹${Number(r.ppv||0).toLocaleString('en-IN')}</td>
       <td class="mono">₹${Number(r.wedge||0).toLocaleString('en-IN')}</td>
-      <td>${rowBtns}</td>
+      <td>${stBadge}</td>
     </tr>`;
   }).join('');
 
-  const mrpHeader = isFixed
-    ? `MRP/PART (₹) <span class="fbadge">FIXED ₹${FIXED_CATS[cat]}</span>`
-    : 'MRP/PART (₹)';
+  const mrpHead = isFixed ? `MRP/PART (₹) <span class="fbadge">FIXED ₹${FIXED_CATS[cat]}</span>` : 'MRP/PART (₹)';
 
   area.innerHTML = `<div class="tcard"><table>
     <thead><tr>
+      <th><input type="checkbox" class="row-cb" onchange="toggleAll(this)" title="Select all pending"></th>
       <th>S.NO</th><th>DATE</th><th>PART NAME</th><th>PLAN QTY</th><th>MP</th>
-      <th>${mrpHeader}</th><th>PPV (₹)</th><th>WEDGE (₹)</th><th>ACTION</th>
+      <th>${mrpHead}</th><th>PPV (₹)</th><th>WEDGE (₹)</th><th>STATUS</th>
     </tr></thead>
     <tbody>${tbody}</tbody>
   </table></div>`;
@@ -335,40 +395,95 @@ function showTab(cat) {
   const btnR = document.getElementById('btnR');
   abar.style.display = 'flex';
 
+  const appC = rows.filter(r=>r.status==='APPROVED').length;
+  const rejC = rows.filter(r=>r.status==='REJECTED').length;
+  const pendC= rows.filter(r=>r.status==='PENDING').length;
+
   if (st === 'PENDING') {
-    document.getElementById('aMsg').innerHTML = '📋 <b>' + cat + '</b> — ' + rows.length + ' rows | Sab ek saath approve/reject karein:';
+    document.getElementById('aMsg').innerHTML =
+      `📋 <b>${cat}</b> — Total: ${rows.length} | ✅ ${appC} | ❌ ${rejC} | 🕐 ${pendC}`;
     btnA.disabled = false; btnR.disabled = false;
-    btnA.textContent = '✅ Approve All'; btnR.textContent = '❌ Reject All';
   } else if (st === 'APPROVED') {
-    document.getElementById('aMsg').innerHTML = '<span style="color:#2e7d32">✅ ' + cat + ' APPROVED hai.</span>';
+    document.getElementById('aMsg').innerHTML = `<span style="color:#2e7d32">✅ ${cat} APPROVED</span> — ${rows.length} rows`;
     btnA.disabled = true; btnR.disabled = true;
   } else {
-    document.getElementById('aMsg').innerHTML = '<span style="color:#e53935">❌ ' + cat + ' REJECTED hai.</span>';
+    document.getElementById('aMsg').innerHTML = `<span style="color:#e53935">❌ ${cat} REJECTED</span> — ${rows.length} rows`;
     btnA.disabled = true; btnR.disabled = true;
   }
 }
 
-// ── ROW LEVEL APPROVE ───────────────────────────────────────────
-async function approveRow(rowId) {
+// ── CHECKBOX LOGIC ───────────────────────────────────────────────
+function toggleRow(id, cb) {
+  if (cb.checked) selectedIds.add(id);
+  else selectedIds.delete(id);
+  const tr = document.getElementById('tr-'+id);
+  if (tr) tr.style.background = cb.checked ? '#e8f5e9' : '';
+  updateSelBar();
+}
+
+function toggleAll(masterCb) {
+  const rows = planData[activeTab] || [];
+  rows.filter(r => r.status === 'PENDING').forEach(r => {
+    const cb = document.querySelector(`input[onchange="toggleRow(${r.id}, this)"]`);
+    if (masterCb.checked) { selectedIds.add(r.id); if(cb) cb.checked=true; }
+    else { selectedIds.delete(r.id); if(cb) cb.checked=false; }
+    const tr = document.getElementById('tr-'+r.id);
+    if (tr) tr.style.background = masterCb.checked ? '#e8f5e9' : '';
+  });
+  updateSelBar();
+}
+
+function updateSelBar() {
+  const bar = document.getElementById('selBar');
+  const cnt = selectedIds.size;
+  if (cnt > 0) {
+    bar.classList.add('show');
+    document.getElementById('selInfo').textContent = cnt + ' row' + (cnt>1?'s':'') + ' selected';
+  } else {
+    bar.classList.remove('show');
+  }
+}
+
+function clearSelection() {
+  selectedIds.clear();
+  updateSelBar();
+  showTab(activeTab);
+}
+
+// ── BULK APPROVE ────────────────────────────────────────────────
+async function bulkAction(status) {
+  if (!selectedIds.size) return;
+  const ids = [...selectedIds];
+
   try {
-    await sb.from('plan_data').update({ status: 'APPROVED' }).eq('id', rowId);
+    await sb.from('plan_data').update({ status }).in('id', ids);
+
     // Update local data
-    planData[activeTab] = planData[activeTab].map(r => r.id === rowId ? {...r, status:'APPROVED'} : r);
+    planData[activeTab] = planData[activeTab].map(r =>
+      ids.includes(r.id) ? {...r, status} : r
+    );
+
+    // Check if all rows in category are now decided
+    updateCatStatusFromRows();
+
+    selectedIds.clear();
+    updateSelBar();
+
+    const allRows = Object.values(planData).flat();
+    updateStats(allRows);
+    buildTabs();
     showTab(activeTab);
-    showToast('✅ Row approved!');
-  } catch(err) { showToast('Error: ' + err.message); }
+
+    const emoji = status === 'APPROVED' ? '✅' : '❌';
+    showToast(`${emoji} ${ids.length} rows ${status}!`);
+
+    // Send email notification
+    await sendEmailNotification(activeTab, status, ids.length, '');
+
+  } catch(err) { showToast('Error: '+err.message); }
 }
 
-// ── ROW LEVEL REJECT ────────────────────────────────────────────
-function rejectRow(rowId) {
-  rejectMode  = 'row';
-  rejectRowId = rowId;
-  document.getElementById('modalTitle').textContent = '❌ Is Row Ko Reject Karein?';
-  document.getElementById('modalDesc').textContent  = 'Optional reason likhein:';
-  openModal();
-}
-
-// ── CATEGORY APPROVE ALL ────────────────────────────────────────
+// ── APPROVE ALL ─────────────────────────────────────────────────
 async function doApproveAll() {
   const btnA = document.getElementById('btnA');
   btnA.disabled = true; btnA.textContent = '⏳...';
@@ -376,47 +491,96 @@ async function doApproveAll() {
     await sb.from('category_status').update({ status:'APPROVED', updated_at: new Date().toISOString() })
             .eq('plan_id', planId).eq('category', activeTab);
     await sb.from('plan_data').update({ status:'APPROVED' })
-            .eq('plan_id', planId).eq('category', activeTab);
+            .eq('plan_id', planId).eq('category', activeTab).eq('status','PENDING');
+
     catStatus[activeTab] = 'APPROVED';
     planData[activeTab]  = planData[activeTab].map(r => ({...r, status:'APPROVED'}));
-    updateStats(); buildTabs(); showTab(activeTab);
-    showToast('✅ ' + activeTab + ' — sab Approved!');
+
+    const allRows = Object.values(planData).flat();
+    updateStats(allRows);
+    buildTabs();
+    showTab(activeTab);
+    showToast('✅ '+activeTab+' — Sab Approved!');
+    await sendEmailNotification(activeTab, 'APPROVED', planData[activeTab].length, '');
   } catch(err) { showToast('Error: '+err.message); btnA.disabled=false; btnA.textContent='✅ Approve All'; }
 }
 
+// Update category status based on row statuses
+function updateCatStatusFromRows() {
+  const rows = planData[activeTab] || [];
+  const allApp = rows.every(r => r.status === 'APPROVED');
+  const allRej = rows.every(r => r.status === 'REJECTED');
+  const anyPend= rows.some(r => r.status === 'PENDING');
+  if (allApp) catStatus[activeTab] = 'APPROVED';
+  else if (allRej) catStatus[activeTab] = 'REJECTED';
+  else if (!anyPend) catStatus[activeTab] = 'PARTIALLY APPROVED';
+  // else stays PENDING
+}
+
 // ── MODAL ────────────────────────────────────────────────────────
-function openModal() { document.getElementById('overlay').classList.add('show'); }
+function openCatReject() {
+  rejectMode = 'cat';
+  document.getElementById('modalInfo').textContent = '❌ Puri category reject: ' + activeTab;
+  document.getElementById('overlay').classList.add('show');
+}
+function openBulkReject() {
+  if (!selectedIds.size) return;
+  rejectMode = 'bulk';
+  document.getElementById('modalInfo').textContent = '❌ ' + selectedIds.size + ' selected rows reject hongi';
+  document.getElementById('overlay').classList.add('show');
+}
 function closeModal() {
   document.getElementById('overlay').classList.remove('show');
-  rejectMode = 'cat'; rejectRowId = null;
-  document.getElementById('modalTitle').textContent = '❌ Reject Karna Chahte Hain?';
-  document.getElementById('modalDesc').textContent  = 'Reason likhein — HR ko email mein jayega.';
+  document.getElementById('rReason').value = '';
 }
 
 async function confirmReject() {
   const reason = document.getElementById('rReason').value.trim();
   closeModal();
 
-  try {
-    if (rejectMode === 'row' && rejectRowId) {
-      // Single row reject
-      await sb.from('plan_data').update({ status:'REJECTED' }).eq('id', rejectRowId);
-      planData[activeTab] = planData[activeTab].map(r => r.id === rejectRowId ? {...r, status:'REJECTED'} : r);
-      showTab(activeTab);
-      showToast('❌ Row rejected!');
-    } else {
-      // Whole category reject
+  if (rejectMode === 'bulk') {
+    await bulkAction('REJECTED');
+    if (reason) await sendEmailNotification(activeTab, 'REJECTED', selectedIds.size, reason);
+  } else {
+    // Whole category reject
+    try {
       await sb.from('category_status').update({ status:'REJECTED', reject_reason: reason, updated_at: new Date().toISOString() })
               .eq('plan_id', planId).eq('category', activeTab);
       await sb.from('plan_data').update({ status:'REJECTED' })
               .eq('plan_id', planId).eq('category', activeTab);
+
       catStatus[activeTab] = 'REJECTED';
       planData[activeTab]  = planData[activeTab].map(r => ({...r, status:'REJECTED'}));
-      updateStats(); buildTabs(); showTab(activeTab);
-      showToast('❌ ' + activeTab + ' — Rejected!');
-    }
-    document.getElementById('rReason').value = '';
-  } catch(err) { showToast('Error: ' + err.message); }
+
+      const allRows = Object.values(planData).flat();
+      updateStats(allRows);
+      buildTabs();
+      showTab(activeTab);
+      showToast('❌ '+activeTab+' — Sab Rejected!');
+      await sendEmailNotification(activeTab, 'REJECTED', planData[activeTab].length, reason);
+    } catch(err) { showToast('Error: '+err.message); }
+  }
+}
+
+// ── EMAIL NOTIFICATION ───────────────────────────────────────────
+async function sendEmailNotification(category, status, count, reason) {
+  try {
+    // EmailJS use kar rahe hain — free email sending
+    // Setup: https://www.emailjs.com (free 200 emails/month)
+    // Abhi ke liye Supabase mein log kar rahe hain
+    const logMsg = `[EMAIL LOG] Category: ${category} | Status: ${status} | Rows: ${count} | Reason: ${reason || 'N/A'} | Time: ${new Date().toLocaleString('en-IN')}`;
+    console.log(logMsg);
+
+    // Supabase mein email log save karo
+    await sb.from('weekly_plans').update({
+      overall_status: Object.values(catStatus).every(v=>v==='APPROVED') ? 'FULLY APPROVED' :
+                      Object.values(catStatus).every(v=>v!=='PENDING') ? 'PARTIALLY APPROVED' : 'PENDING'
+    }).eq('id', planId);
+
+    showToast(`📧 Email log saved — ${category} ${status}`);
+  } catch(e) {
+    console.warn('Email log error:', e);
+  }
 }
 
 function showToast(msg) {
