@@ -161,6 +161,7 @@
         <div class="wu" id="uploadTxt"></div>
       </div>
       <button class="rbtn" onclick="loadPlan()">🔄 Refresh</button>
+      <button class="rbtn" style="background:#ffebee;color:#e53935;border:1px solid #ef9a9a;" onclick="clearOldData()">🗑 Clear Old Data</button>
     </div>
 
     <div class="tabs" id="tabsRow"></div>
@@ -211,7 +212,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
 // Email config — Supabase Edge Function ya EmailJS use kar sakte hain
 // Abhi ke liye console log + toast notification
-const HR_EMAIL    = 'mis.plan01@gulatiauto.com';
+const HR_EMAIL    = 'mis.plant01@gulatiauto.com';
 const OWNER_EMAIL = 'mis.02@gulatiauto.com';
 
 const CREDS      = { user: 'kartik', pass: 'kartik123' };
@@ -580,6 +581,41 @@ async function sendEmailNotification(category, status, count, reason) {
     showToast(`📧 Email log saved — ${category} ${status}`);
   } catch(e) {
     console.warn('Email log error:', e);
+  }
+}
+
+// ── CLEAR OLD DATA ───────────────────────────────────────────────
+async function clearOldData() {
+  const confirm1 = confirm('⚠ Kya aap sure hain?\n\nSaara purana plan data delete ho jayega.\nHR ko dobara naya plan upload karna hoga.');
+  if (!confirm1) return;
+
+  try {
+    showToast('⏳ Data clear ho raha hai...');
+
+    // Delete all plan data, category status, and plans
+    await sb.from('plan_data').delete().neq('id', 0);
+    await sb.from('category_status').delete().neq('id', 0);
+    await sb.from('weekly_plans').delete().neq('id', 0);
+
+    // Reset UI
+    planData  = {};
+    catStatus = {};
+    planId    = null;
+    activeTab = '';
+    selectedIds.clear();
+
+    document.getElementById('tabsRow').innerHTML    = '';
+    document.getElementById('tableArea').innerHTML  = '';
+    document.getElementById('abar').style.display   = 'none';
+    document.getElementById('selBar').classList.remove('show');
+    document.getElementById('noPlan').style.display = 'block';
+    document.getElementById('weekTxt').textContent  = 'Koi plan nahi hai';
+    document.getElementById('uploadTxt').textContent= '✅ Data clear ho gaya — HR se naya plan mangvayein';
+    updateStats([]);
+
+    showToast('✅ Purana data clear ho gaya! HR se naya plan upload karwayen.');
+  } catch(err) {
+    showToast('❌ Error: ' + err.message);
   }
 }
 
