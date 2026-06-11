@@ -28,7 +28,7 @@
   .wrap{max-width:1400px;margin:0 auto;padding:24px 18px;}
 
   /* STATS */
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:22px;}
   .sc{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--primary);}
   .sc.g{border-left-color:var(--green);}
   .sc.r{border-left-color:var(--accent);}
@@ -44,7 +44,7 @@
   .wbar{background:#fff;border-radius:10px;padding:14px 20px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.06);gap:12px;flex-wrap:wrap;}
   .wbar .wk{font-size:14px;font-weight:700;color:var(--primary);}
   .wbar .wu{font-size:12px;color:var(--sub);margin-top:3px;}
-  .rbtn{padding:8px 18px;background:#e8eaf6;color:#3949ab;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;}
+  .rbtn{padding:8px 16px;background:#e8eaf6;color:#3949ab;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;}
 
   /* TABS */
   .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
@@ -54,23 +54,23 @@
   .tab.active .cnt{background:rgba(255,255,255,.3);}
   .tab.t-app{border-color:#a5d6a7;}
   .tab.t-rej{border-color:#ef9a9a;}
-  .tab.t-part{border-color:#ffcc02;}
+  .tab.t-part{border-color:#ffd54f;}
 
-  /* SELECTION BAR */
-  .sel-bar{display:none;background:#fff3e0;border:2px solid #ffb74d;border-radius:10px;padding:14px 20px;margin-bottom:14px;align-items:center;gap:12px;flex-wrap:wrap;}
-  .sel-bar.show{display:flex;}
-  .sel-info{font-size:14px;font-weight:700;color:#e65100;flex:1;}
-  .sel-btn{padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;border:none;}
-  .sel-app{background:var(--green);color:#fff;}
-  .sel-app:hover{background:#1b5e20;}
-  .sel-rej{background:var(--accent);color:#fff;margin-left:6px;}
-  .sel-rej:hover{background:#b71c1c;}
-  .sel-clear{background:#e0e0e0;color:#333;}
+  /* COUNTER BOXES */
+  .counter-bar{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .counter-box{display:none;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:2px solid;transition:all .2s;}
+  .counter-box.show{display:flex;}
+  .counter-box.app-box{background:#e8f5e9;border-color:#a5d6a7;color:#2e7d32;}
+  .counter-box.app-box:hover{background:#2e7d32;color:#fff;}
+  .counter-box.rej-box{background:#ffebee;border-color:#ef9a9a;color:#e53935;}
+  .counter-box.rej-box:hover{background:#e53935;color:#fff;}
+  .counter-box .cb-icon{font-size:18px;}
+  .counter-box .cb-clear{font-size:11px;opacity:.7;margin-left:4px;}
 
   /* CATEGORY ACTION BAR */
-  .abar{background:#fff;border-radius:12px;padding:16px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
-  .abar p{font-size:14px;font-weight:600;flex:1;}
-  .btn{padding:9px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
+  .abar{background:#fff;border-radius:12px;padding:14px 20px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+  .abar p{font-size:13px;font-weight:600;flex:1;color:#333;}
+  .btn{padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
   .btn-app{background:var(--green);color:#fff;}
   .btn-app:hover{background:#1b5e20;}
   .btn-rej{background:var(--accent);color:#fff;}
@@ -81,44 +81,52 @@
   .tcard{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;margin-bottom:18px;}
   .tcard table{width:100%;border-collapse:collapse;font-size:13px;}
   thead tr{background:var(--primary);}
-  thead th{color:#fff;padding:11px 13px;text-align:left;font-weight:600;white-space:nowrap;}
+  thead th{color:#fff;padding:11px 12px;text-align:left;font-weight:600;white-space:nowrap;}
   tbody tr{border-bottom:1px solid #f0f0f0;transition:background .1s;}
-  tbody tr:hover{background:#f8f9ff;}
-  tbody tr.selected{background:#e8f5e9 !important;}
+  tbody tr:hover{background:#fafafa;}
   tbody tr.date-start td{border-top:3px solid #90caf9 !important;}
-  tbody td{padding:10px 13px;vertical-align:middle;}
-  .dtag{background:#e8eaf6;color:#3949ab;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;}
+  tbody tr.staged-app{background:#f1fdf3 !important;}
+  tbody tr.staged-rej{background:#fff5f5 !important;}
+  tbody tr.done-app{background:#e8f5e9;}
+  tbody tr.done-rej{background:#ffebee;}
+  tbody td{padding:10px 12px;vertical-align:middle;}
+  .dtag{background:#e8eaf6;color:#3949ab;padding:3px 9px;border-radius:4px;font-size:11px;font-weight:700;}
   .mono{font-family:monospace;font-size:12px;}
   .fbadge{background:#fff9c4;color:#f57f17;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;margin-left:4px;}
 
-  /* CHECKBOX */
-  .row-cb{width:16px;height:16px;cursor:pointer;accent-color:var(--primary);}
+  /* ROW BUTTONS */
+  .row-actions{display:flex;gap:6px;align-items:center;}
+  .rb{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .15s;white-space:nowrap;}
+  .rb-app{background:#e8f5e9;border-color:#a5d6a7;color:#2e7d32;}
+  .rb-app:hover,.rb-app.active{background:#2e7d32;color:#fff;border-color:#2e7d32;}
+  .rb-rej{background:#ffebee;border-color:#ef9a9a;color:#e53935;}
+  .rb-rej:hover,.rb-rej.active{background:#e53935;color:#fff;border-color:#e53935;}
+  .rb:disabled{opacity:.35;cursor:not-allowed;}
 
   /* STATUS BADGE */
-  .st-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;}
-  .st-pending{background:#fff3e0;color:#f57c00;}
-  .st-approved{background:#e8f5e9;color:#2e7d32;}
-  .st-rejected{background:#ffebee;color:#e53935;}
+  .st{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;}
+  .st-p{background:#fff3e0;color:#f57c00;}
+  .st-a{background:#e8f5e9;color:#2e7d32;}
+  .st-r{background:#ffebee;color:#e53935;}
 
   /* MODAL */
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
   .overlay.show{display:flex;}
-  .modal{background:#fff;border-radius:14px;padding:32px 28px;width:460px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.3);}
-  .modal h3{font-size:18px;margin-bottom:6px;}
-  .modal p{color:var(--sub);font-size:13px;margin-bottom:16px;}
+  .modal{background:#fff;border-radius:14px;padding:30px 28px;width:460px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+  .modal h3{font-size:17px;margin-bottom:8px;}
   .modal .minfo{background:#fff3e0;border-radius:8px;padding:10px 14px;font-size:13px;color:#e65100;margin-bottom:14px;font-weight:600;}
-  .modal textarea{width:100%;height:100px;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;resize:none;outline:none;font-family:inherit;}
-  .mbtns{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
+  .modal p{color:var(--sub);font-size:13px;margin-bottom:12px;}
+  .modal textarea{width:100%;height:90px;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;resize:none;outline:none;font-family:inherit;}
+  .mbtns{display:flex;gap:10px;margin-top:14px;justify-content:flex-end;}
   .btn-cancel{background:#f5f5f5;color:#333;}
   .btn-red{background:var(--accent);color:#fff;}
 
   .empty{text-align:center;padding:60px 20px;color:var(--sub);}
-  .empty .ico{font-size:52px;margin-bottom:14px;}
   .loading{text-align:center;padding:60px;color:var(--sub);font-size:15px;}
   #noPlan{display:none;text-align:center;padding:80px 20px;}
   #noPlan .ico{font-size:60px;margin-bottom:16px;}
   #noPlan h3{color:var(--primary);font-size:20px;margin-bottom:8px;}
-  #toast{position:fixed;bottom:24px;right:24px;background:#212121;color:#fff;padding:12px 22px;border-radius:8px;font-size:14px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;max-width:340px;}
+  #toast{position:fixed;bottom:24px;right:24px;background:#212121;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;max-width:340px;}
   #toast.show{opacity:1;}
 </style>
 </head>
@@ -147,13 +155,12 @@
   </header>
 
   <div class="wrap">
-    <!-- STATS: row-level counts -->
     <div class="stats">
-      <div class="sc o"><div class="n" id="sTotalRows">—</div><div class="l">Total Rows</div></div>
-      <div class="sc g"><div class="n" id="sAppRows">—</div><div class="l">Approved Rows</div></div>
-      <div class="sc r"><div class="n" id="sRejRows">—</div><div class="l">Rejected Rows</div></div>
-      <div class="sc b"><div class="n" id="sPendRows">—</div><div class="l">Pending Rows</div></div>
-      <div class="sc" ><div class="n" id="sCatPend">—</div><div class="l">Categories Pending</div></div>
+      <div class="sc o"><div class="n" id="sTot">—</div><div class="l">Total Rows</div></div>
+      <div class="sc g"><div class="n" id="sApp">—</div><div class="l">Approved Rows</div></div>
+      <div class="sc r"><div class="n" id="sRej">—</div><div class="l">Rejected Rows</div></div>
+      <div class="sc b"><div class="n" id="sPnd">—</div><div class="l">Pending Rows</div></div>
+      <div class="sc" ><div class="n" id="sCatP">—</div><div class="l">Categories Pending</div></div>
     </div>
 
     <div class="wbar">
@@ -161,18 +168,26 @@
         <div class="wk" id="weekTxt">Loading...</div>
         <div class="wu" id="uploadTxt"></div>
       </div>
-      <button class="rbtn" onclick="loadPlan()">🔄 Refresh</button>
-      <button class="rbtn" style="background:#ffebee;color:#e53935;border:1px solid #ef9a9a;" onclick="clearOldData()">🗑 Clear Old Data</button>
+      <div style="display:flex;gap:8px;">
+        <button class="rbtn" onclick="loadPlan()">🔄 Refresh</button>
+        <button class="rbtn" style="background:#ffebee;color:#e53935;" onclick="clearOldData()">🗑 Clear Data</button>
+      </div>
     </div>
 
     <div class="tabs" id="tabsRow"></div>
 
-    <!-- SELECTION BAR — shows when rows are checked -->
-    <div class="sel-bar" id="selBar">
-      <div class="sel-info" id="selInfo">0 rows selected</div>
-      <button class="sel-btn sel-app" onclick="bulkAction('APPROVED')">✅ Approve Selected</button>
-      <button class="sel-btn sel-rej" onclick="openBulkReject()">❌ Reject Selected</button>
-      <button class="sel-btn sel-clear" onclick="clearSelection()">✕ Clear</button>
+    <!-- COUNTER BOXES — staged items -->
+    <div class="counter-bar" id="counterBar">
+      <div class="counter-box app-box" id="appCountBox" onclick="commitStaged('APPROVED')">
+        <span class="cb-icon">✅</span>
+        <span id="appCountTxt">Approve (0 items)</span>
+        <span class="cb-clear" onclick="clearStaged('APPROVED', event)">✕ clear</span>
+      </div>
+      <div class="counter-box rej-box" id="rejCountBox" onclick="openStagedReject()">
+        <span class="cb-icon">❌</span>
+        <span id="rejCountTxt">Reject (0 items)</span>
+        <span class="cb-clear" onclick="clearStaged('REJECTED', event)">✕ clear</span>
+      </div>
     </div>
 
     <!-- CATEGORY ACTION BAR -->
@@ -207,28 +222,28 @@
 <div id="toast"></div>
 
 <script>
+// ── CONFIG ──────────────────────────────────────────────────────
 const SUPABASE_URL  = 'https://wbnnztvymnnytbfltjex.supabase.co';
 const SUPABASE_ANON = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indibm56dHZ5bW5ueXRiZmx0amV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzA4NDAsImV4cCI6MjA5NjU0Njg0MH0.GSkp3jBxWK1NMWFhLtUwbSnquzGOObrvNg0M8xrQwh4`;
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-// EmailJS Config
+emailjs.init('s5DsGz1pTQQVHZDd7');
 const EJS_SERVICE  = 'service_qt95iuh';
 const EJS_TEMPLATE = 'ju9atlb';
-const EJS_KEY      = 's5DsGz1pTQQVHZDd7';
-emailjs.init(EJS_KEY);
-
-// HR Email — jis pe notification jayegi
-const HR_EMAIL = 'mis.plant01@gulatiauto.com';
+const HR_EMAIL     = 'mis.plant01@gulatiauto.com';
 
 const CREDS      = { user: 'kartik', pass: 'kartik123' };
 const FIXED_CATS = { 'ROTOR':25, 'DIE CASTING':330, 'MOULDING':7 };
 
-let planData      = {};   // { CAT: [rows] }
-let catStatus     = {};   // { CAT: 'PENDING'|'APPROVED'|'REJECTED' }
-let planId        = null;
-let activeTab     = '';
-let selectedIds   = new Set();  // checked row IDs
-let rejectMode    = 'cat';      // 'cat' | 'bulk'
+let planData  = {};
+let catStatus = {};
+let planId    = null;
+let activeTab = '';
+
+// staged = rows marked but NOT yet saved to DB
+// { rowId: 'APPROVED' | 'REJECTED' }
+let staged = {};
+let rejectMode = 'cat'; // 'cat' | 'staged'
 
 // ── LOGIN ───────────────────────────────────────────────────────
 function doLogin() {
@@ -245,7 +260,7 @@ function doLogin() {
 function doLogout() {
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('mainApp').style.display = 'none';
-  selectedIds.clear();
+  staged = {};
 }
 
 // ── LOAD PLAN ───────────────────────────────────────────────────
@@ -254,8 +269,8 @@ async function loadPlan() {
   document.getElementById('tabsRow').innerHTML    = '';
   document.getElementById('abar').style.display   = 'none';
   document.getElementById('noPlan').style.display = 'none';
-  document.getElementById('selBar').classList.remove('show');
-  selectedIds.clear();
+  staged = {};
+  updateCounterBar();
 
   try {
     const { data: plans } = await sb.from('weekly_plans').select('*').eq('is_active', true).limit(1);
@@ -264,7 +279,6 @@ async function loadPlan() {
       document.getElementById('noPlan').style.display = 'block';
       updateStats([]); return;
     }
-
     const plan = plans[0];
     planId = plan.id;
     document.getElementById('weekTxt').textContent  = '📅 Week: ' + plan.week_start;
@@ -285,33 +299,24 @@ async function loadPlan() {
       document.getElementById('noPlan').style.display = 'block';
       updateStats([]); return;
     }
-
     const allRows = Object.values(planData).flat();
     updateStats(allRows);
     buildTabs();
-    const first = Object.keys(planData)[0];
-    if (first) showTab(first);
-
+    showTab(Object.keys(planData)[0]);
   } catch(err) {
     document.getElementById('tableArea').innerHTML =
-      '<div class="empty"><div class="ico">⚠️</div><p>Error: '+err.message+'</p></div>';
+      '<div class="empty"><div>⚠️</div><p>Error: '+err.message+'</p></div>';
   }
 }
 
-// ── STATS — row level ────────────────────────────────────────────
+// ── STATS ───────────────────────────────────────────────────────
 function updateStats(allRows) {
-  const total = allRows.length;
-  const app   = allRows.filter(r => r.status === 'APPROVED').length;
-  const rej   = allRows.filter(r => r.status === 'REJECTED').length;
-  const pend  = allRows.filter(r => r.status === 'PENDING').length;
-  const catP  = Object.values(catStatus).filter(v => v === 'PENDING').length;
-
-  document.getElementById('sTotalRows').textContent = total;
-  document.getElementById('sAppRows').textContent   = app;
-  document.getElementById('sRejRows').textContent   = rej;
-  document.getElementById('sPendRows').textContent  = pend;
-  document.getElementById('sCatPend').textContent   = catP;
-  document.getElementById('pbadge').textContent     = catP + ' Pending';
+  document.getElementById('sTot').textContent  = allRows.length;
+  document.getElementById('sApp').textContent  = allRows.filter(r=>r.status==='APPROVED').length;
+  document.getElementById('sRej').textContent  = allRows.filter(r=>r.status==='REJECTED').length;
+  document.getElementById('sPnd').textContent  = allRows.filter(r=>r.status==='PENDING').length;
+  document.getElementById('sCatP').textContent = Object.values(catStatus).filter(v=>v==='PENDING').length;
+  document.getElementById('pbadge').textContent= Object.values(catStatus).filter(v=>v==='PENDING').length + ' Pending';
 }
 
 // ── TABS ─────────────────────────────────────────────────────────
@@ -319,16 +324,14 @@ function buildTabs() {
   const row = document.getElementById('tabsRow');
   row.innerHTML = '';
   Object.keys(planData).forEach(cat => {
-    const st   = catStatus[cat] || 'PENDING';
-    const rows = planData[cat] || [];
-    const appC = rows.filter(r=>r.status==='APPROVED').length;
-    const rejC = rows.filter(r=>r.status==='REJECTED').length;
-    const icon = st==='APPROVED'?'✅':st==='REJECTED'?'❌':
-                 (appC>0||rejC>0)?'⚡':'🕐';
-    const extraClass = st==='APPROVED'?' t-app':st==='REJECTED'?' t-rej':
-                       (appC>0||rejC>0)?' t-part':'';
-    const div = document.createElement('div');
-    div.className = 'tab'+(cat===activeTab?' active':'')+extraClass;
+    const st    = catStatus[cat] || 'PENDING';
+    const rows  = planData[cat] || [];
+    const appC  = rows.filter(r=>r.status==='APPROVED').length;
+    const rejC  = rows.filter(r=>r.status==='REJECTED').length;
+    const icon  = st==='APPROVED'?'✅':st==='REJECTED'?'❌':(appC>0||rejC>0)?'⚡':'🕐';
+    const extra = st==='APPROVED'?' t-app':st==='REJECTED'?' t-rej':(appC>0||rejC>0)?' t-part':'';
+    const div   = document.createElement('div');
+    div.className = 'tab'+(cat===activeTab?' active':'')+extra;
     div.innerHTML = icon+' '+cat+' <span class="cnt">'+rows.length+'</span>';
     div.onclick   = () => showTab(cat);
     row.appendChild(div);
@@ -338,40 +341,58 @@ function buildTabs() {
 // ── SHOW TAB ─────────────────────────────────────────────────────
 function showTab(cat) {
   activeTab = cat;
-  selectedIds.clear();
-  updateSelBar();
   buildTabs();
-
   const rows    = planData[cat] || [];
   const st      = catStatus[cat] || 'PENDING';
   const isFixed = FIXED_CATS.hasOwnProperty(cat);
   const area    = document.getElementById('tableArea');
 
   if (!rows.length) {
-    area.innerHTML = '<div class="empty"><div class="ico">📭</div><p>No data</p></div>';
+    area.innerHTML = '<div class="empty"><p>No data</p></div>';
     document.getElementById('abar').style.display = 'none'; return;
   }
 
   let lastDate = '';
   const tbody = rows.map((r, i) => {
-    const rs       = r.status || 'PENDING';
-    const isNewDate= r.date !== lastDate;
-    lastDate       = r.date;
-    const dateClass= isNewDate ? ' class="date-start"' : '';
-    const isChecked= selectedIds.has(r.id);
-    const rowBg    = isChecked ? ' style="background:#e8f5e9"' :
-                     rs==='APPROVED' ? ' style="background:#f1fdf3"' :
-                     rs==='REJECTED' ? ' style="background:#fff5f5"' : '';
+    const rs        = r.status || 'PENDING';
+    const stagedVal = staged[r.id];
+    const isNewDate = r.date !== lastDate;
+    lastDate        = r.date;
+    const dateClass = isNewDate ? ' class="date-start"' : '';
 
-    const stBadge = `<span class="st-badge st-${rs.toLowerCase()}">${rs}</span>`;
+    // Row background
+    let rowClass = '';
+    if (stagedVal === 'APPROVED') rowClass = ' class="staged-app"';
+    else if (stagedVal === 'REJECTED') rowClass = ' class="staged-rej"';
+    else if (rs === 'APPROVED') rowClass = ' class="done-app"';
+    else if (rs === 'REJECTED') rowClass = ' class="done-rej"';
 
-    // Checkbox only for PENDING rows
-    const cb = rs === 'PENDING'
-      ? `<input type="checkbox" class="row-cb" ${isChecked?'checked':''} onchange="toggleRow(${r.id}, this)">`
-      : '—';
+    // Status badge
+    const stBadge = rs === 'PENDING' && !stagedVal
+      ? `<span class="st st-p">PENDING</span>`
+      : rs === 'APPROVED' && !stagedVal
+      ? `<span class="st st-a">APPROVED</span>`
+      : rs === 'REJECTED' && !stagedVal
+      ? `<span class="st st-r">REJECTED</span>`
+      : stagedVal === 'APPROVED'
+      ? `<span class="st st-a">✅ Staged</span>`
+      : `<span class="st st-r">❌ Staged</span>`;
 
-    return `<tr${dateClass}${rowBg} id="tr-${r.id}">
-      <td>${cb}</td>
+    // Action buttons — only for PENDING rows
+    let actionHtml = '';
+    if (rs === 'PENDING') {
+      const appActive = stagedVal === 'APPROVED' ? ' active' : '';
+      const rejActive = stagedVal === 'REJECTED' ? ' active' : '';
+      actionHtml = `
+        <div class="row-actions">
+          <button class="rb rb-app${appActive}" onclick="stageRow(${r.id}, 'APPROVED', this)">✓ Approve</button>
+          <button class="rb rb-rej${rejActive}" onclick="stageRow(${r.id}, 'REJECTED', this)">✗ Reject</button>
+        </div>`;
+    } else {
+      actionHtml = stBadge;
+    }
+
+    return `<tr${dateClass}${rowClass} id="tr-${r.id}">
       <td>${i+1}</td>
       <td><span class="dtag">${r.date}</span></td>
       <td><b>${r.part_name}</b></td>
@@ -380,86 +401,102 @@ function showTab(cat) {
       <td class="mono">₹${Number(r.mrp_per_part||0).toLocaleString('en-IN')}${isFixed?'<span class="fbadge">FIXED</span>':''}</td>
       <td class="mono">₹${Number(r.ppv||0).toLocaleString('en-IN')}</td>
       <td class="mono">₹${Number(r.wedge||0).toLocaleString('en-IN')}</td>
-      <td>${stBadge}</td>
+      <td>${actionHtml}</td>
     </tr>`;
   }).join('');
 
-  const mrpHead = isFixed ? `MRP/PART (₹) <span class="fbadge">FIXED ₹${FIXED_CATS[cat]}</span>` : 'MRP/PART (₹)';
+  const mrpHead = isFixed
+    ? `MRP/PART (₹) <span class="fbadge">FIXED ₹${FIXED_CATS[cat]}</span>`
+    : 'MRP/PART (₹)';
 
   area.innerHTML = `<div class="tcard"><table>
     <thead><tr>
-      <th><input type="checkbox" class="row-cb" onchange="toggleAll(this)" title="Select all pending"></th>
       <th>S.NO</th><th>DATE</th><th>PART NAME</th><th>PLAN QTY</th><th>MP</th>
-      <th>${mrpHead}</th><th>PPV (₹)</th><th>WEDGE (₹)</th><th>STATUS</th>
+      <th>${mrpHead}</th><th>PPV (₹)</th><th>WEDGE (₹)</th><th>ACTION</th>
     </tr></thead>
     <tbody>${tbody}</tbody>
   </table></div>`;
 
   // Category action bar
-  const abar = document.getElementById('abar');
-  const btnA = document.getElementById('btnA');
-  const btnR = document.getElementById('btnR');
+  const abar  = document.getElementById('abar');
+  const btnA  = document.getElementById('btnA');
+  const btnR  = document.getElementById('btnR');
+  const pendC = rows.filter(r=>r.status==='PENDING').length;
+  const appC  = rows.filter(r=>r.status==='APPROVED').length;
+  const rejC  = rows.filter(r=>r.status==='REJECTED').length;
   abar.style.display = 'flex';
-
-  const appC = rows.filter(r=>r.status==='APPROVED').length;
-  const rejC = rows.filter(r=>r.status==='REJECTED').length;
-  const pendC= rows.filter(r=>r.status==='PENDING').length;
 
   if (st === 'PENDING') {
     document.getElementById('aMsg').innerHTML =
-      `📋 <b>${cat}</b> — Total: ${rows.length} | ✅ ${appC} | ❌ ${rejC} | 🕐 ${pendC}`;
-    btnA.disabled = false; btnR.disabled = false;
+      `📋 <b>${cat}</b> — Total: ${rows.length} | ✅ ${appC} | ❌ ${rejC} | 🕐 ${pendC} pending`;
+    btnA.disabled = pendC === 0; btnR.disabled = pendC === 0;
   } else if (st === 'APPROVED') {
-    document.getElementById('aMsg').innerHTML = `<span style="color:#2e7d32">✅ ${cat} APPROVED</span> — ${rows.length} rows`;
+    document.getElementById('aMsg').innerHTML = `<span style="color:#2e7d32">✅ ${cat} APPROVED</span>`;
     btnA.disabled = true; btnR.disabled = true;
   } else {
-    document.getElementById('aMsg').innerHTML = `<span style="color:#e53935">❌ ${cat} REJECTED</span> — ${rows.length} rows`;
+    document.getElementById('aMsg').innerHTML = `<span style="color:#e53935">❌ ${cat} REJECTED</span>`;
     btnA.disabled = true; btnR.disabled = true;
   }
 }
 
-// ── CHECKBOX LOGIC ───────────────────────────────────────────────
-function toggleRow(id, cb) {
-  if (cb.checked) selectedIds.add(id);
-  else selectedIds.delete(id);
+// ── STAGE ROW (mark but don't save yet) ─────────────────────────
+function stageRow(id, action, btn) {
+  // Toggle — agar already same action staged hai to unstage
+  if (staged[id] === action) {
+    delete staged[id];
+  } else {
+    staged[id] = action;
+  }
+  updateCounterBar();
+
+  // Visually update row
   const tr = document.getElementById('tr-'+id);
-  if (tr) tr.style.background = cb.checked ? '#e8f5e9' : '';
-  updateSelBar();
+  if (tr) {
+    tr.className = staged[id] === 'APPROVED' ? 'staged-app' :
+                   staged[id] === 'REJECTED' ? 'staged-rej' : '';
+  }
+
+  // Update buttons active state
+  const row = (planData[activeTab]||[]).find(r=>r.id===id);
+  if (row) showTab(activeTab); // re-render to sync button states
 }
 
-function toggleAll(masterCb) {
-  const rows = planData[activeTab] || [];
-  rows.filter(r => r.status === 'PENDING').forEach(r => {
-    const cb = document.querySelector(`input[onchange="toggleRow(${r.id}, this)"]`);
-    if (masterCb.checked) { selectedIds.add(r.id); if(cb) cb.checked=true; }
-    else { selectedIds.delete(r.id); if(cb) cb.checked=false; }
-    const tr = document.getElementById('tr-'+r.id);
-    if (tr) tr.style.background = masterCb.checked ? '#e8f5e9' : '';
-  });
-  updateSelBar();
-}
+// ── COUNTER BAR ──────────────────────────────────────────────────
+function updateCounterBar() {
+  const appIds = Object.keys(staged).filter(id => staged[id]==='APPROVED');
+  const rejIds = Object.keys(staged).filter(id => staged[id]==='REJECTED');
 
-function updateSelBar() {
-  const bar = document.getElementById('selBar');
-  const cnt = selectedIds.size;
-  if (cnt > 0) {
-    bar.classList.add('show');
-    document.getElementById('selInfo').textContent = cnt + ' row' + (cnt>1?'s':'') + ' selected';
+  const appBox = document.getElementById('appCountBox');
+  const rejBox = document.getElementById('rejCountBox');
+
+  if (appIds.length > 0) {
+    appBox.classList.add('show');
+    document.getElementById('appCountTxt').textContent = `Approve (${appIds.length} items)`;
   } else {
-    bar.classList.remove('show');
+    appBox.classList.remove('show');
+  }
+
+  if (rejIds.length > 0) {
+    rejBox.classList.add('show');
+    document.getElementById('rejCountTxt').textContent = `Reject (${rejIds.length} items)`;
+  } else {
+    rejBox.classList.remove('show');
   }
 }
 
-function clearSelection() {
-  selectedIds.clear();
-  updateSelBar();
+function clearStaged(type, event) {
+  event.stopPropagation();
+  Object.keys(staged).forEach(id => {
+    if (staged[id] === type) delete staged[id];
+  });
+  updateCounterBar();
   showTab(activeTab);
 }
 
-// ── BULK APPROVE ────────────────────────────────────────────────
-async function bulkAction(status) {
-  if (!selectedIds.size) return;
-  const ids = [...selectedIds];
+// ── COMMIT STAGED (save to DB) ───────────────────────────────────
+async function commitStaged(status) {
+  const ids = Object.keys(staged).filter(id => staged[id] === status).map(Number);
+  if (!ids.length) return;
 
   try {
     await sb.from('plan_data').update({ status }).in('id', ids);
@@ -469,72 +506,71 @@ async function bulkAction(status) {
       ids.includes(r.id) ? {...r, status} : r
     );
 
-    // Check if all rows in category are now decided
-    updateCatStatusFromRows();
+    // Clear staged for these ids
+    ids.forEach(id => delete staged[id]);
 
-    selectedIds.clear();
-    updateSelBar();
+    // Update category status
+    updateCatStatusFromRows(activeTab);
 
     const allRows = Object.values(planData).flat();
     updateStats(allRows);
     buildTabs();
     showTab(activeTab);
+    updateCounterBar();
 
     const emoji = status === 'APPROVED' ? '✅' : '❌';
     showToast(`${emoji} ${ids.length} rows ${status}!`);
 
-    // Send email notification
-    await sendEmailNotification(activeTab, status, ids.length, '');
-
+    // Send email
+    await sendEmail(activeTab, status, ids.length, '');
   } catch(err) { showToast('Error: '+err.message); }
 }
 
-// ── APPROVE ALL ─────────────────────────────────────────────────
+function openStagedReject() {
+  rejectMode = 'staged';
+  const cnt = Object.values(staged).filter(v=>v==='REJECTED').length;
+  document.getElementById('modalInfo').textContent = `❌ ${cnt} rows reject hongi`;
+  document.getElementById('overlay').classList.add('show');
+}
+
+// ── CATEGORY APPROVE/REJECT ALL ──────────────────────────────────
 async function doApproveAll() {
+  const pendRows = (planData[activeTab]||[]).filter(r=>r.status==='PENDING');
+  if (!pendRows.length) return;
   const btnA = document.getElementById('btnA');
   btnA.disabled = true; btnA.textContent = '⏳...';
   try {
-    await sb.from('category_status').update({ status:'APPROVED', updated_at: new Date().toISOString() })
+    const ids = pendRows.map(r=>r.id);
+    await sb.from('plan_data').update({status:'APPROVED'}).in('id', ids);
+    await sb.from('category_status').update({status:'APPROVED', updated_at:new Date().toISOString()})
             .eq('plan_id', planId).eq('category', activeTab);
-    await sb.from('plan_data').update({ status:'APPROVED' })
-            .eq('plan_id', planId).eq('category', activeTab).eq('status','PENDING');
-
+    planData[activeTab] = planData[activeTab].map(r=>({...r, status:'APPROVED'}));
     catStatus[activeTab] = 'APPROVED';
-    planData[activeTab]  = planData[activeTab].map(r => ({...r, status:'APPROVED'}));
-
+    staged = {};
     const allRows = Object.values(planData).flat();
-    updateStats(allRows);
-    buildTabs();
-    showTab(activeTab);
+    updateStats(allRows); buildTabs(); showTab(activeTab); updateCounterBar();
     showToast('✅ '+activeTab+' — Sab Approved!');
-    await sendEmailNotification(activeTab, 'APPROVED', planData[activeTab].length, '');
+    await sendEmail(activeTab, 'APPROVED', ids.length, '');
   } catch(err) { showToast('Error: '+err.message); btnA.disabled=false; btnA.textContent='✅ Approve All'; }
 }
 
-// Update category status based on row statuses
-function updateCatStatusFromRows() {
-  const rows = planData[activeTab] || [];
-  const allApp = rows.every(r => r.status === 'APPROVED');
-  const allRej = rows.every(r => r.status === 'REJECTED');
-  const anyPend= rows.some(r => r.status === 'PENDING');
-  if (allApp) catStatus[activeTab] = 'APPROVED';
-  else if (allRej) catStatus[activeTab] = 'REJECTED';
-  else if (!anyPend) catStatus[activeTab] = 'PARTIALLY APPROVED';
-  // else stays PENDING
+function openCatReject() {
+  rejectMode = 'cat';
+  document.getElementById('modalInfo').textContent = '❌ Puri category reject: '+activeTab;
+  document.getElementById('overlay').classList.add('show');
+}
+
+function updateCatStatusFromRows(cat) {
+  const rows = planData[cat] || [];
+  const allApp  = rows.every(r=>r.status==='APPROVED');
+  const allRej  = rows.every(r=>r.status==='REJECTED');
+  const anyPend = rows.some(r=>r.status==='PENDING');
+  if (allApp) catStatus[cat] = 'APPROVED';
+  else if (allRej) catStatus[cat] = 'REJECTED';
+  else if (!anyPend) catStatus[cat] = 'PARTIALLY APPROVED';
 }
 
 // ── MODAL ────────────────────────────────────────────────────────
-function openCatReject() {
-  rejectMode = 'cat';
-  document.getElementById('modalInfo').textContent = '❌ Puri category reject: ' + activeTab;
-  document.getElementById('overlay').classList.add('show');
-}
-function openBulkReject() {
-  if (!selectedIds.size) return;
-  rejectMode = 'bulk';
-  document.getElementById('modalInfo').textContent = '❌ ' + selectedIds.size + ' selected rows reject hongi';
-  document.getElementById('overlay').classList.add('show');
-}
 function closeModal() {
   document.getElementById('overlay').classList.remove('show');
   document.getElementById('rReason').value = '';
@@ -544,95 +580,72 @@ async function confirmReject() {
   const reason = document.getElementById('rReason').value.trim();
   closeModal();
 
-  if (rejectMode === 'bulk') {
-    await bulkAction('REJECTED');
-    if (reason) await sendEmailNotification(activeTab, 'REJECTED', selectedIds.size, reason);
+  if (rejectMode === 'staged') {
+    await commitStaged('REJECTED');
+    if (reason) await sendEmail(activeTab, 'REJECTED', Object.keys(staged).length, reason);
   } else {
-    // Whole category reject
+    // Whole category
     try {
-      await sb.from('category_status').update({ status:'REJECTED', reject_reason: reason, updated_at: new Date().toISOString() })
+      const pendRows = (planData[activeTab]||[]).filter(r=>r.status==='PENDING');
+      const ids = pendRows.map(r=>r.id);
+      await sb.from('plan_data').update({status:'REJECTED'}).in('id', ids);
+      await sb.from('category_status').update({status:'REJECTED', reject_reason:reason, updated_at:new Date().toISOString()})
               .eq('plan_id', planId).eq('category', activeTab);
-      await sb.from('plan_data').update({ status:'REJECTED' })
-              .eq('plan_id', planId).eq('category', activeTab);
-
+      planData[activeTab] = planData[activeTab].map(r=>({...r, status:'REJECTED'}));
       catStatus[activeTab] = 'REJECTED';
-      planData[activeTab]  = planData[activeTab].map(r => ({...r, status:'REJECTED'}));
-
+      staged = {};
       const allRows = Object.values(planData).flat();
-      updateStats(allRows);
-      buildTabs();
-      showTab(activeTab);
+      updateStats(allRows); buildTabs(); showTab(activeTab); updateCounterBar();
       showToast('❌ '+activeTab+' — Sab Rejected!');
-      await sendEmailNotification(activeTab, 'REJECTED', planData[activeTab].length, reason);
+      await sendEmail(activeTab, 'REJECTED', ids.length, reason);
     } catch(err) { showToast('Error: '+err.message); }
-  }
-}
-
-// ── EMAIL NOTIFICATION via EmailJS ──────────────────────────────
-async function sendEmailNotification(category, status, count, reason) {
-  try {
-    const isApproved = status === 'APPROVED';
-    const message    = isApproved
-      ? `${category} production plan APPROVE ho gaya hai. ✅ Aap ab is category ka PO bana sakti hain.`
-      : `${category} production plan REJECT ho gaya hai. ❌ Kripya plan revise karke dobara upload karein.`;
-
-    const templateParams = {
-      to_email: HR_EMAIL,
-      category: category,
-      status:   isApproved ? 'APPROVED ✅' : 'REJECTED ❌',
-      count:    count + ' rows',
-      time:     new Date().toLocaleString('en-IN'),
-      message:  message,
-      reason:   reason || (isApproved ? 'N/A' : 'Reason not provided'),
-    };
-
-    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, templateParams);
-    showToast('📧 HR ko email bhej di — ' + category + ' ' + status);
-  } catch(err) {
-    console.error('Email error:', err);
-    showToast('⚠ Email nahi gayi: ' + err.text || err.message);
   }
 }
 
 // ── CLEAR OLD DATA ───────────────────────────────────────────────
 async function clearOldData() {
-  const confirm1 = confirm('⚠ Kya aap sure hain?\n\nSaara purana plan data delete ho jayega.\nHR ko dobara naya plan upload karna hoga.');
-  if (!confirm1) return;
-
+  if (!confirm('⚠ Saara purana plan data delete ho jayega.\nHR se naya plan upload karwayen.')) return;
   try {
-    showToast('⏳ Data clear ho raha hai...');
+    await sb.from('plan_data').delete().neq('id',0);
+    await sb.from('category_status').delete().neq('id',0);
+    await sb.from('weekly_plans').delete().neq('id',0);
+    planData={}; catStatus={}; planId=null; activeTab=''; staged={};
+    document.getElementById('tabsRow').innerHTML='';
+    document.getElementById('tableArea').innerHTML='';
+    document.getElementById('abar').style.display='none';
+    document.getElementById('noPlan').style.display='block';
+    document.getElementById('weekTxt').textContent='Koi plan nahi hai';
+    document.getElementById('uploadTxt').textContent='HR se naya plan upload karwayen';
+    updateStats([]); updateCounterBar();
+    showToast('✅ Data clear ho gaya!');
+  } catch(err) { showToast('Error: '+err.message); }
+}
 
-    // Delete all plan data, category status, and plans
-    await sb.from('plan_data').delete().neq('id', 0);
-    await sb.from('category_status').delete().neq('id', 0);
-    await sb.from('weekly_plans').delete().neq('id', 0);
-
-    // Reset UI
-    planData  = {};
-    catStatus = {};
-    planId    = null;
-    activeTab = '';
-    selectedIds.clear();
-
-    document.getElementById('tabsRow').innerHTML    = '';
-    document.getElementById('tableArea').innerHTML  = '';
-    document.getElementById('abar').style.display   = 'none';
-    document.getElementById('selBar').classList.remove('show');
-    document.getElementById('noPlan').style.display = 'block';
-    document.getElementById('weekTxt').textContent  = 'Koi plan nahi hai';
-    document.getElementById('uploadTxt').textContent= '✅ Data clear ho gaya — HR se naya plan mangvayein';
-    updateStats([]);
-
-    showToast('✅ Purana data clear ho gaya! HR se naya plan upload karwayen.');
+// ── EMAIL ────────────────────────────────────────────────────────
+async function sendEmail(category, status, count, reason) {
+  try {
+    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+      to_email: HR_EMAIL,
+      category,
+      status:   status === 'APPROVED' ? 'APPROVED ✅' : 'REJECTED ❌',
+      count:    count + ' rows',
+      time:     new Date().toLocaleString('en-IN'),
+      message:  status === 'APPROVED'
+        ? `${category} production plan APPROVE ho gaya hai. ✅ Aap ab PO bana sakti hain.`
+        : `${category} production plan REJECT ho gaya hai. ❌ Kripya plan revise karke dobara upload karein.`,
+      reason: reason || (status === 'APPROVED' ? 'N/A' : 'Reason not provided'),
+    });
+    showToast('📧 HR ko email bhej di!');
   } catch(err) {
-    showToast('❌ Error: ' + err.message);
+    console.error('Email error:', err);
+    showToast('⚠ Email nahi gayi: ' + (err.text || err.message));
   }
 }
 
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 4000);
+  setTimeout(()=>t.classList.remove('show'), 4000);
 }
 </script>
 </body>
