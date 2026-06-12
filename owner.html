@@ -359,7 +359,7 @@ function clearStaged(type, event) {
 }
 
 // ── COMMIT STAGED ────────────────────────────────────────────────
-async function commitStaged(status) {
+async function commitStaged(status, reason='') {
   const ids = Object.keys(staged).filter(id=>staged[id]===status).map(Number);
   if (!ids.length) return;
   try {
@@ -370,8 +370,7 @@ async function commitStaged(status) {
     updateStats(Object.values(planData).flat());
     buildTabs(); showTab(activeTab); updateCounterBar();
     showToast(`${status==='APPROVED'?'✅':'❌'} ${ids.length} rows ${status}!`);
-    // ✅ Pass exact rowIds so only THESE items show in email
-    await sendEmail(activeTab, status, ids.length, '', ids);
+    await sendEmail(activeTab, status, ids.length, reason, ids);
   } catch(err) { showToast('Error: '+err.message); }
 }
 
@@ -418,23 +417,22 @@ function closeModal() {
 }
 
 async function confirmReject() {
-  const reason=document.getElementById('rReason').value.trim();
+  const reason = document.getElementById('rReason').value.trim();
   closeModal();
-  if(rejectMode==='staged') {
-    const ids=Object.keys(staged).filter(id=>staged[id]==='REJECTED').map(Number);
-    await commitStaged('REJECTED');
-    if(reason) await sendEmail(activeTab,'REJECTED',ids.length,reason,ids);
+  if (rejectMode === 'staged') {
+    // commitStaged ke andar sendEmail already hai — alag se call mat karo
+    await commitStaged('REJECTED', reason);
   } else {
     try {
-      const pendRows=(planData[activeTab]||[]).filter(r=>r.status==='PENDING');
-      const ids=pendRows.map(r=>r.id);
+      const pendRows = (planData[activeTab]||[]).filter(r=>r.status==='PENDING');
+      const ids = pendRows.map(r=>r.id);
       await sb.from('plan_data').update({status:'REJECTED'}).in('id',ids);
       await sb.from('category_status').update({status:'REJECTED',reject_reason:reason,updated_at:new Date().toISOString()}).eq('plan_id',planId).eq('category',activeTab);
-      planData[activeTab]=planData[activeTab].map(r=>({...r,status:'REJECTED'}));
-      catStatus[activeTab]='REJECTED'; staged={};
+      planData[activeTab] = planData[activeTab].map(r=>({...r,status:'REJECTED'}));
+      catStatus[activeTab] = 'REJECTED'; staged = {};
       updateStats(Object.values(planData).flat()); buildTabs(); showTab(activeTab); updateCounterBar();
       showToast('❌ '+activeTab+' — Sab Rejected!');
-      await sendEmail(activeTab,'REJECTED',ids.length,reason,ids);
+      await sendEmail(activeTab, 'REJECTED', ids.length, reason, ids);
     } catch(err) { showToast('Error: '+err.message); }
   }
 }
